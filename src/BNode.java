@@ -190,7 +190,90 @@ public class BNode implements BNodeInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
+	/**
+	 * Splits the child node at childIndex into 2 nodes.
+	 * @param childIndex
+	 */
+	public void splitChild(int childIndex){
+
+	}
+
+	/**
+	 * True iff the child node at childIndx-1 exists and has more than t-1 blocks.
+	 * @param childIndx
+	 * @return
+	 */
+	private boolean childHasNonMinimalLeftSibling(int childIndx){
+		return true;
+	}
+
+	/**
+	 * True iff the child node at childIndx+1 exists and has more than t-1 blocks.
+	 * @param childIndx
+	 * @return
+	 */
+	private boolean childHasNonMinimalRightSibling(int childIndx){
+		return true;
+	}
+
+	/**
+	 * Verifies the child node at childIndx has at least t blocks.<br>
+	 * If necessary a shift or merge is performed.
+	 *
+	 * @param childIndx
+	 */
+	private void shiftOrMergeChildIfNeeded(int childIndx){
+	}
+
+	/**
+	 * Add additional block to the child node at childIndx, by shifting from left sibling.
+	 * @param childIndx
+	 */
+	private void shiftFromLeftSibling(int childIndx){
+	}
+
+	/**
+	 * Add additional block to the child node at childIndx, by shifting from right sibling.
+	 * @param childIndx
+	 */
+	private void shiftFromRightSibling(int childIndx){
+	}
+
+	/**
+	 * Merges the child node at childIndx with its left or right sibling.
+	 * @param childIndx
+	 */
+	private void mergeChildWithSibling(int childIndx){
+	}
+
+	/**
+	 * Merges the child node at childIndx with its left sibling.<br>
+	 * The left sibling node is removed.
+	 * @param childIndx
+	 */
+	private void mergeWithLeftSibling(int childIndx){
+	}
+
+	/**
+	 * Merges the child node at childIndx with its right sibling.<br>
+	 * The right sibling node is removed.
+	 * @param childIndx
+	 */
+	private void mergeWithRightSibling(int childIndx){
+	}
+	/**
+	 * Finds and returns the block with the min key in the subtree.
+	 * @return min key block
+	 */
+	private Block getMinKeyBlock(){
+		return null;
+	}
+	/**
+	 * Finds and returns the block with the max key in the subtree.
+	 * @return max key block
+	 */
+	private Block getMaxKeyBlock(){
+		return null;
+	}
 }
