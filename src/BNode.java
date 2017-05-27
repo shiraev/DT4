@@ -162,6 +162,11 @@ public class BNode implements BNodeInterface {
 	@Override
 	public Block search(int key) {
 		// TODO Auto-generated method stub
+		for (Block b: blocksList){
+			if (b.getKey()==key){
+
+			}
+		}
 		return null;
 	}
 

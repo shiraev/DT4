@@ -67,6 +67,7 @@ public class BTree implements BTreeInterface {
 	@Override
 	public Block search(int key) {
 		// TODO Auto-generated method stub
+		root.search(key);
 		return null;
 	}
 
