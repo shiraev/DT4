@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.jar.Pack200;
 
 //SUBMIT
 public class BNode implements BNodeInterface {
@@ -247,6 +248,7 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftFromLeftSibling(int childIndx){
+        //when the sibiling have at least t element
         BNode leftSibiling = childrenList.get(childIndx - 1);
         Block blockToShift = leftSibiling.blocksList.get(numOfBlocks - 1);
         leftSibiling.blocksList.remove(blockToShift);
@@ -262,14 +264,15 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftFromRightSibling(int childIndx){
-        BNode rightSibiling = childrenList.get(childIndx + 1);
-        Block blockToShift = rightSibiling.blocksList.get(0);
-        rightSibiling.blocksList.remove(blockToShift);
+        //when the sibling have at least t element
+        BNode rightSibling = childrenList.get(childIndx + 1);
+        Block blockToShift = rightSibling.blocksList.get(0);
+        rightSibling.blocksList.remove(blockToShift);
         Block blockToAdd = this.blocksList.get(childIndx);
         this.blocksList.add(blockToShift);
         this.blocksList.remove(blockToAdd);
-        BNode leftSibiling = childrenList.get(childIndx);
-        leftSibiling.blocksList.add(blockToAdd);
+        BNode leftSibling = childrenList.get(childIndx);
+        leftSibling.blocksList.add(blockToAdd);
 	}
 
 	/**
@@ -277,6 +280,11 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void mergeChildWithSibling(int childIndx){
+        //when there isn't sibling with t element
+        if (childIndx!=0)
+            mergeWithLeftSibling(childIndx);
+        else
+            mergeWithRightSibling(childIndx);
 	}
 
 	/**
@@ -285,6 +293,16 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void mergeWithLeftSibling(int childIndx){
+        BNode nodeToMerge = childrenList.get(childIndx);
+        BNode leftSibling = childrenList.get(childIndx-1);
+        Block headBlock = blocksList.get(childIndx-1);
+        leftSibling.blocksList.add(headBlock);
+        blocksList.remove(headBlock);
+        for (Block b : nodeToMerge.blocksList){
+            leftSibling.blocksList.add(b);
+        }
+        childrenList.remove(nodeToMerge);
+        numOfBlocks--;
 	}
 
 	/**
@@ -293,6 +311,16 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void mergeWithRightSibling(int childIndx){
+        BNode nodeToMerge = childrenList.get(childIndx);
+        BNode rightSibling = childrenList.get(childIndx+1);
+        Block headBlock = blocksList.get(childIndx);
+        rightSibling.blocksList.add(headBlock);
+        blocksList.remove(headBlock);
+        for (Block b : nodeToMerge.blocksList){
+            rightSibling.blocksList.add(b);
+        }
+        childrenList.remove(nodeToMerge);
+        numOfBlocks--;
 	}
 	/**
 	 * Finds and returns the block with the min key in the subtree.
