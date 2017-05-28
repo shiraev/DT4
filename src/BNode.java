@@ -247,6 +247,14 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftFromLeftSibling(int childIndx){
+        BNode leftSibiling = childrenList.get(childIndx - 1);
+        Block blockToShift = leftSibiling.blocksList.get(numOfBlocks - 1);
+        leftSibiling.blocksList.remove(blockToShift);
+        Block blockToAdd = this.blocksList.get(childIndx);
+        this.blocksList.add(blockToShift);
+        this.blocksList.remove(blockToAdd);
+        BNode rightSibiling = childrenList.get(childIndx);
+        rightSibiling.blocksList.add(blockToAdd);
 	}
 
 	/**
@@ -254,6 +262,14 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftFromRightSibling(int childIndx){
+        BNode rightSibiling = childrenList.get(childIndx + 1);
+        Block blockToShift = rightSibiling.blocksList.get(0);
+        rightSibiling.blocksList.remove(blockToShift);
+        Block blockToAdd = this.blocksList.get(childIndx);
+        this.blocksList.add(blockToShift);
+        this.blocksList.remove(blockToAdd);
+        BNode leftSibiling = childrenList.get(childIndx);
+        leftSibiling.blocksList.add(blockToAdd);
 	}
 
 	/**
