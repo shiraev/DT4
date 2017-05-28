@@ -168,13 +168,22 @@ public class BNode implements BNodeInterface {
 			else if (b.getKey()<key){
 				int index =blocksList.indexOf(b);
 				if (blocksList.get(index+1).getKey()> key)
-					return childrenList.get(index+1).search(key);
+				    if (!childrenList.get(index+1).isLeaf())
+					    return childrenList.get(index+1).search(key);
+                    else
+                        return null;
 			}
 			else if((blocksList.indexOf(b) == 0) && (b.getKey() < key)){
-                return childrenList.get(0).search(key);
+                if (!childrenList.get(0).isLeaf())
+                    return childrenList.get(0).search(key);
+                else
+                    return null;
             }
             else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()> key){
-                return childrenList.get(numOfBlocks-1).search(key);
+                if (!childrenList.get(numOfBlocks-1).isLeaf())
+                    return childrenList.get(numOfBlocks-1).search(key);
+                else
+                    return null;
             }
 		}
 		return null;
