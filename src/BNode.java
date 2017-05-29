@@ -198,8 +198,11 @@ public class BNode implements BNodeInterface {
 
 	@Override
 	public void delete(int key) {
-		// TODO Auto-generated method stub
-		
+		if (isLeaf())
+			for (Block b : blocksList) {
+				if (b.getKey()==key)
+					blocksList.remove(b);
+			}
 	}
 
 	@Override
@@ -241,6 +244,12 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftOrMergeChildIfNeeded(int childIndx){
+		if (childrenList.get(childIndx-1).numOfBlocks==t)
+			shiftFromLeftSibling(childIndx);
+		else if (childrenList.get(childIndx+1).numOfBlocks==t)
+			shiftFromRightSibling(childIndx);
+		else
+			mergeChildWithSibling(childIndx);
 	}
 
 	/**
@@ -248,15 +257,15 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftFromLeftSibling(int childIndx){
-        //when the sibiling have at least t element
-        BNode leftSibiling = childrenList.get(childIndx - 1);
-        Block blockToShift = leftSibiling.blocksList.get(numOfBlocks - 1);
-        leftSibiling.blocksList.remove(blockToShift);
+        //when the sibling have at least t element
+        BNode leftSibling = childrenList.get(childIndx - 1);
+        Block blockToShift = leftSibling.blocksList.get(numOfBlocks - 1);
+        leftSibling.blocksList.remove(blockToShift);
         Block blockToAdd = this.blocksList.get(childIndx);
         this.blocksList.add(blockToShift);
         this.blocksList.remove(blockToAdd);
-        BNode rightSibiling = childrenList.get(childIndx);
-        rightSibiling.blocksList.add(blockToAdd);
+        BNode rightSibling = childrenList.get(childIndx);
+        rightSibling.blocksList.add(blockToAdd);
 	}
 
 	/**
