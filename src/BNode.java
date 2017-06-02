@@ -344,13 +344,23 @@ public class BNode implements BNodeInterface {
 	 * @return min key block
 	 */
 	private Block getMinKeyBlock(){
-		return null;
+		Block output = blocksList.get(0);
+		for (Block b : blocksList){
+			if (b.getKey()< output.getKey())
+				output=b;
+		}
+		return output;
 	}
 	/**
 	 * Finds and returns the block with the max key in the subtree.
 	 * @return max key block
 	 */
 	private Block getMaxKeyBlock(){
-		return null;
+		Block output = blocksList.get(0);
+		for (Block b : blocksList){
+			if (b.getKey()> output.getKey())
+				output=b;
+		}
+		return output;
 	}
 }
