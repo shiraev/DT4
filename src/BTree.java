@@ -96,7 +96,7 @@ public class BTree implements BTreeInterface {
 
 	@Override
 	public void delete(int key) {
-		// TODO Auto-generated method stub
+		root.delete(key);
 		
 	}
 
@@ -105,6 +105,4 @@ public class BTree implements BTreeInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }
