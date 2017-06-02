@@ -71,7 +71,26 @@ public class BTree implements BTreeInterface {
 
 	@Override
 	public void insert(Block b) {
-		// TODO Auto-generated method stub
+		if (root == null)
+		{
+			root = new BNode(t,b);
+		}
+		else
+		{
+			if (root.getNumOfBlocks() == 2*t-1)
+			{
+				BNode a= new BNode(t, false);
+				a.getChildrenList().add(root);
+				a.splitChild(0);
+				int i = 0;
+				if (a.getBlocksList().get(0).getKey() < b.getKey())
+					i++;
+				a.getChildrenList().get(i).insertNonFull(b);
+				root = a;
+			}
+			else
+				root.insertNonFull(b);
+		}
 		
 	}
 
