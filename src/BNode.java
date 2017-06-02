@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.jar.Pack200;
 
 //SUBMIT
 public class BNode implements BNodeInterface {
@@ -10,7 +11,7 @@ public class BNode implements BNodeInterface {
 	private int numOfBlocks;
 	private boolean isLeaf;
 	private ArrayList<Block> blocksList;
-	private ArrayList<BNode> childrenList;
+	private ArrayList <BNode> childrenList;
 
 	/**
 	 * Constructor for creating a node with a single child.<br>
@@ -46,7 +47,11 @@ public class BNode implements BNodeInterface {
 		this.blocksList = blocksList;
 		this.childrenList = childrenList;
 	}
-
+	public BNode(int t, boolean isLeaf)
+	{
+		this.t=t;
+		this.isLeaf=isLeaf;
+	}
 	@Override
 	public int getT() {
 		return t;
@@ -161,20 +166,73 @@ public class BNode implements BNodeInterface {
 	
 	@Override
 	public Block search(int key) {
-		// TODO Auto-generated method stub
+		for (Block b: blocksList){
+			if (b.getKey()==key){
+				return b;
+			}
+			else if (b.getKey()<key){
+				int index =blocksList.indexOf(b);
+				if (blocksList.get(index+1).getKey()> key)
+				    if (!childrenList.get(index+1).isLeaf())
+					    return childrenList.get(index+1).search(key);
+                    else
+                        return null;
+			}
+			else if((blocksList.indexOf(b) == 0) && (b.getKey() < key)){
+                if (!childrenList.get(0).isLeaf())
+                    return childrenList.get(0).search(key);
+                else
+                    return null;
+            }
+            else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()> key){
+                if (!childrenList.get(numOfBlocks-1).isLeaf())
+                    return childrenList.get(numOfBlocks-1).search(key);
+                else
+                    return null;
+            }
+		}
 		return null;
 	}
 
 	@Override
 	public void insertNonFull(Block d) {
-		// TODO Auto-generated method stub
+		int i = numOfBlocks-1;
+		if (isLeaf() == true)
+		{
+			while (i >= 0 && blocksList.get(i).getKey()>d.getKey())
+			{
+				blocksList.set(i+1,blocksList.get(i));
+				i--;
+			}
+			blocksList.set(i+1,d);
+			numOfBlocks = numOfBlocks+1;
+		}
+		else
+		{
+			while (i >= 0 &&blocksList.get(i).getKey()>d.getKey())
+				i--;
+			if (childrenList.get(i+1).getNumOfBlocks() == 2*t-1)
+			{
+				splitChild(i+1);
+				if (blocksList.get(i+1).getKey()<d.getKey())
+					i++;
+			}
+			childrenList.get(i+1).insertNonFull(d);
+		}
 		
+	}
+	public void setNumOfBlocks(int numOfBlocks)
+	{
+		this.numOfBlocks=numOfBlocks;
 	}
 
 	@Override
 	public void delete(int key) {
-		// TODO Auto-generated method stub
-		
+		if (isLeaf())
+			for (Block b : blocksList) {
+				if (b.getKey()==key)
+					blocksList.remove(b);
+			}
 	}
 
 	@Override
@@ -182,7 +240,175 @@ public class BNode implements BNodeInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
+	/**
+	 * Splits the child node at childIndex into 2 nodes.
+	 * @param childIndex
+	 */
+	public void splitChild(int childIndex)
+	{
+		BNode y=childrenList.get(childIndex);
+		BNode z=new BNode(y.getT(),y.isLeaf());
+		z.numOfBlocks=t-1;
+		for (int i=0;i<t-1;i++)
+		{
+			z.getBlocksList().add(y.getBlocksList().get(i+t));
+		}
+		if(!y.isLeaf())
+		{
+			for(int i=0; i<t;i++)
+			{
+				z.getChildrenList().add(y.getChildrenList().get(i+y.getT()));
+				y.getChildrenList().remove(y.getChildrenList().get(i+y.getT()));
+			}
+		}
+		y.numOfBlocks=t-1;
+		for(int i=numOfBlocks;i>=childIndex+1;i--)
+		{
+			childrenList.set(i+1,childrenList.get(i));
+		}
+		childrenList.set(childIndex+1,z);
+		for(int i=numOfBlocks-1;i>=childIndex;i--)
+		{
+			blocksList.set(i+1,blocksList.get(i));
+		}
+		blocksList.set(childIndex,y.getBlocksList().get(t-1));
+		numOfBlocks=numOfBlocks+1;
+	}
+
+	/**
+	 * True iff the child node at childIndx-1 exists and has more than t-1 blocks.
+	 * @param childIndx
+	 * @return
+	 */
+	private boolean childHasNonMinimalLeftSibling(int childIndx){
+		if (childIndx==0)
+			return false;
+		if (childrenList.get(childIndx-1).numOfBlocks>=t)
+			return true;
+		return false;
+	}
+
+	/**
+	 * True iff the child node at childIndx+1 exists and has more than t-1 blocks.
+	 * @param childIndx
+	 * @return
+	 */
+	private boolean childHasNonMinimalRightSibling(int childIndx){
+		if (childIndx==childrenList.size()-1)
+			return false;
+		if (childrenList.get(childIndx+1).numOfBlocks>=t)
+			return true;
+		return false;
+	}
+
+	/**
+	 * Verifies the child node at childIndx has at least t blocks.<br>
+	 * If necessary a shift or merge is performed.
+	 *
+	 * @param childIndx
+	 */
+	private void shiftOrMergeChildIfNeeded(int childIndx){
+		if (childHasNonMinimalLeftSibling(childIndx))
+			shiftFromLeftSibling(childIndx);
+		else if (childHasNonMinimalRightSibling(childIndx))
+			shiftFromRightSibling(childIndx);
+		else
+			mergeChildWithSibling(childIndx);
+	}
+
+	/**
+	 * Add additional block to the child node at childIndx, by shifting from left sibling.
+	 * @param childIndx
+	 */
+	private void shiftFromLeftSibling(int childIndx){
+        //when the sibling have at least t element
+        BNode leftSibling = childrenList.get(childIndx - 1);
+        Block blockToShift = leftSibling.blocksList.get(numOfBlocks - 1);
+        leftSibling.blocksList.remove(blockToShift);
+        Block blockToAdd = this.blocksList.get(childIndx);
+        this.blocksList.add(blockToShift);
+        this.blocksList.remove(blockToAdd);
+        BNode rightSibling = childrenList.get(childIndx);
+        rightSibling.blocksList.add(blockToAdd);
+	}
+
+	/**
+	 * Add additional block to the child node at childIndx, by shifting from right sibling.
+	 * @param childIndx
+	 */
+	private void shiftFromRightSibling(int childIndx){
+        //when the sibling have at least t element
+        BNode rightSibling = childrenList.get(childIndx + 1);
+        Block blockToShift = rightSibling.blocksList.get(0);
+        rightSibling.blocksList.remove(blockToShift);
+        Block blockToAdd = this.blocksList.get(childIndx);
+        this.blocksList.add(blockToShift);
+        this.blocksList.remove(blockToAdd);
+        BNode leftSibling = childrenList.get(childIndx);
+        leftSibling.blocksList.add(blockToAdd);
+	}
+
+	/**
+	 * Merges the child node at childIndx with its left or right sibling.
+	 * @param childIndx
+	 */
+	private void mergeChildWithSibling(int childIndx){
+        //when there isn't sibling with t element
+        if (childIndx!=0)
+            mergeWithLeftSibling(childIndx);
+        else
+            mergeWithRightSibling(childIndx);
+	}
+
+	/**
+	 * Merges the child node at childIndx with its left sibling.<br>
+	 * The left sibling node is removed.
+	 * @param childIndx
+	 */
+	private void mergeWithLeftSibling(int childIndx){
+        BNode nodeToMerge = childrenList.get(childIndx);
+        BNode leftSibling = childrenList.get(childIndx-1);
+        Block headBlock = blocksList.get(childIndx-1);
+        leftSibling.blocksList.add(headBlock);
+        blocksList.remove(headBlock);
+        for (Block b : nodeToMerge.blocksList){
+            leftSibling.blocksList.add(b);
+        }
+        childrenList.remove(nodeToMerge);
+        numOfBlocks--;
+	}
+
+	/**
+	 * Merges the child node at childIndx with its right sibling.<br>
+	 * The right sibling node is removed.
+	 * @param childIndx
+	 */
+	private void mergeWithRightSibling(int childIndx){
+        BNode nodeToMerge = childrenList.get(childIndx);
+        BNode rightSibling = childrenList.get(childIndx+1);
+        Block headBlock = blocksList.get(childIndx);
+        rightSibling.blocksList.add(headBlock);
+        blocksList.remove(headBlock);
+        for (Block b : nodeToMerge.blocksList){
+            rightSibling.blocksList.add(b);
+        }
+        childrenList.remove(nodeToMerge);
+        numOfBlocks--;
+	}
+	/**
+	 * Finds and returns the block with the min key in the subtree.
+	 * @return min key block
+	 */
+	private Block getMinKeyBlock()
+	{
+		return  null;
+	}
+	/**
+	 * Finds and returns the block with the max key in the subtree.
+	 * @return max key block
+	 */
+	private Block getMaxKeyBlock(){
+		return  null;
+	}
 }
