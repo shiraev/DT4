@@ -11,7 +11,7 @@ public class BNode implements BNodeInterface {
 	private int numOfBlocks;
 	private boolean isLeaf;
 	private ArrayList<Block> blocksList;
-	private ArrayList<BNode> childrenList;
+	private ArrayList <BNode> childrenList;
 
 	/**
 	 * Constructor for creating a node with a single child.<br>
@@ -20,11 +20,6 @@ public class BNode implements BNodeInterface {
 	public BNode(int t, BNode firstChild) {
 		this(t, false, 0);
 		this.childrenList.add(firstChild);
-	}
-	public BNode(int t, boolean isLeaf)
-	{
-		this.t=t;
-		this.isLeaf=isLeaf;
 	}
 
 	/**
@@ -52,7 +47,11 @@ public class BNode implements BNodeInterface {
 		this.blocksList = blocksList;
 		this.childrenList = childrenList;
 	}
-
+	public BNode(int t, boolean isLeaf)
+	{
+		this.t=t;
+		this.isLeaf=isLeaf;
+	}
 	@Override
 	public int getT() {
 		return t;
@@ -220,11 +219,16 @@ public class BNode implements BNodeInterface {
 			}
 			childrenList.get(i+1).insertNonFull(d);
 		}
-
+		
+	}
+	public void setNumOfBlocks(int numOfBlocks)
+	{
+		this.numOfBlocks=numOfBlocks;
 	}
 
 	@Override
 	public void delete(int key) {
+<<<<<<< HEAD
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
 			if (isLeaf())
@@ -241,6 +245,13 @@ public class BNode implements BNodeInterface {
 			}
 			getDeep.delete(key);
 		}
+=======
+		if (isLeaf())
+			for (Block b : blocksList) {
+				if (b.getKey()==key)
+					blocksList.remove(b);
+			}
+>>>>>>> c28da24026ac898c5e4412a698c2fd156007c845
 	}
 
 	@Override
@@ -253,37 +264,41 @@ public class BNode implements BNodeInterface {
 	 * Splits the child node at childIndex into 2 nodes.
 	 * @param childIndex
 	 */
-    public void splitChild(int childIndex)
-    {
-        BNode y=childrenList.get(childIndex);
-        BNode z=new BNode(y.getT(),y.isLeaf());
-        z.numOfBlocks=t-1;
-        for (int i=0;i<t-1;i++)
-        {
-            z.getBlocksList().add(y.getBlocksList().get(i+t));
-        }
-        if(!y.isLeaf())
-        {
-            for(int i=0; i<t;i++)
-            {
-                z.getChildrenList().add(y.getChildrenList().get(i+y.getT()));
-                y.getChildrenList().remove(y.getChildrenList().get(i+y.getT()));
-            }
-        }
-        y.numOfBlocks=t-1;
-        for(int i=numOfBlocks;i>=childIndex+1;i--)
-        {
-            childrenList.set(i+1,childrenList.get(i));
-        }
-        childrenList.set(childIndex+1,z);
-        for(int i=numOfBlocks-1;i>=childIndex;i--)
-        {
-            blocksList.set(i+1,blocksList.get(i));
-        }
-        blocksList.set(childIndex,y.getBlocksList().get(t-1));
-        numOfBlocks=numOfBlocks+1;
+<<<<<<< HEAD
+	public void splitChild(int childIndex){
 
-    }
+=======
+	public void splitChild(int childIndex)
+	{
+		BNode y=childrenList.get(childIndex);
+		BNode z=new BNode(y.getT(),y.isLeaf());
+		z.numOfBlocks=t-1;
+		for (int i=0;i<t-1;i++)
+		{
+			z.getBlocksList().add(y.getBlocksList().get(i+t));
+		}
+		if(!y.isLeaf())
+		{
+			for(int i=0; i<t;i++)
+			{
+				z.getChildrenList().add(y.getChildrenList().get(i+y.getT()));
+				y.getChildrenList().remove(y.getChildrenList().get(i+y.getT()));
+			}
+		}
+		y.numOfBlocks=t-1;
+		for(int i=numOfBlocks;i>=childIndex+1;i--)
+		{
+			childrenList.set(i+1,childrenList.get(i));
+		}
+		childrenList.set(childIndex+1,z);
+		for(int i=numOfBlocks-1;i>=childIndex;i--)
+		{
+			blocksList.set(i+1,blocksList.get(i));
+		}
+		blocksList.set(childIndex,y.getBlocksList().get(t-1));
+		numOfBlocks=numOfBlocks+1;
+>>>>>>> c28da24026ac898c5e4412a698c2fd156007c845
+	}
 
 	/**
 	 * True iff the child node at childIndx-1 exists and has more than t-1 blocks.
@@ -409,6 +424,7 @@ public class BNode implements BNodeInterface {
 	 * Finds and returns the block with the min key in the subtree.
 	 * @return min key block
 	 */
+<<<<<<< HEAD
 	private Block getMinKeyBlock(){
 		Block output = blocksList.get(0);
 		for (Block b : blocksList){
@@ -416,17 +432,26 @@ public class BNode implements BNodeInterface {
 				output=b;
 		}
 		return output;
+=======
+	private Block getMinKeyBlock()
+	{
+		return  null;
+>>>>>>> c28da24026ac898c5e4412a698c2fd156007c845
 	}
 	/**
 	 * Finds and returns the block with the max key in the subtree.
 	 * @return max key block
 	 */
 	private Block getMaxKeyBlock(){
+<<<<<<< HEAD
 		Block output = blocksList.get(0);
 		for (Block b : blocksList){
 			if (b.getKey()> output.getKey())
 				output=b;
 		}
 		return output;
+=======
+		return  null;
+>>>>>>> c28da24026ac898c5e4412a698c2fd156007c845
 	}
 }
