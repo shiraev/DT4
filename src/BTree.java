@@ -96,8 +96,9 @@ public class BTree implements BTreeInterface {
 
 	@Override
 	public void delete(int key) {
+		if (root.getBlocksList().contains(key) & root.getNumOfBlocks()>1)
+			root.getBlocksList().remove(search(key));
 		root.delete(key);
-		
 	}
 
 	@Override

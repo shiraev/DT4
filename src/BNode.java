@@ -227,7 +227,7 @@ public class BNode implements BNodeInterface {
 	public void delete(int key) {
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
-			if (isLeaf())
+			if (isLeaf())//check if leave == t-1
 				blocksList.remove(blockToDelete);
 			else
 				shiftOrMergeChildIfNeeded(key);
