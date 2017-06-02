@@ -198,11 +198,22 @@ public class BNode implements BNodeInterface {
 
 	@Override
 	public void delete(int key) {
-		if (isLeaf())
-			for (Block b : blocksList) {
-				if (b.getKey()==key)
-					blocksList.remove(b);
+		Block blockToDelete = search(key);
+		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
+			if (isLeaf())
+				blocksList.remove(blockToDelete);
+			else
+				shiftOrMergeChildIfNeeded(key);
+		}
+		else {
+			int i = 0;
+			BNode getDeep = childrenList.get(0);
+			while (blocksList.get(i).getKey()< key) {
+				getDeep = childrenList.get(i);
+				i++;
 			}
+			getDeep.delete(key);
+		}
 	}
 
 	@Override
