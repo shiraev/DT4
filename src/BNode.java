@@ -170,26 +170,55 @@ public class BNode implements BNodeInterface {
 			else if (b.getKey()<key){
 				int index =blocksList.indexOf(b);
 				if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
+					if (!childrenList.get(index+1).isLeaf())
+						return childrenList.get(index+1).search(key);
+					else
+						return null;
+			}
+			else if(getMinKeyBlock().getKey() > key && !isLeaf()){
+				if (!childrenList.get(0).isLeaf())
+					return childrenList.get(0).search(key);
+				else
+					return null;
+			}
+			else if (getMaxKeyBlock().getKey()< key && !isLeaf()){
+				if (!childrenList.get(numOfBlocks-1).isLeaf())
+					return childrenList.get(numOfBlocks).search(key);
+				else
+					return null;
+			}
+		}
+		return null;
+	}
+	/**
+	public Block search(int key) {
+		for (Block b: blocksList){
+			if (b.getKey()==key){
+				return b;
+			}
+			else if (b.getKey()<key){
+				int index =blocksList.indexOf(b);
+				if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
 				    if (!childrenList.get(index+1).isLeaf())
 					    return childrenList.get(index+1).search(key);
                     else
                         return null;
 			}
-			else if((blocksList.indexOf(b) == 0) && (b.getKey() < key)){
+			else if((blocksList.indexOf(b) == 0) && (b.getKey() > key)){
                 if (!childrenList.get(0).isLeaf())
                     return childrenList.get(0).search(key);
                 else
                     return null;
             }
-            else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()> key){
-                if (numOfBlocks-1>= 0 && !childrenList.get(numOfBlocks-1).isLeaf())
-                    return childrenList.get(numOfBlocks-1).search(key);
+            else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()< key){
+                if (!childrenList.get(numOfBlocks).isLeaf())
+                    return childrenList.get(numOfBlocks).search(key);
                 else
                     return null;
             }
 		}
 		return null;
-	}
+	}**/
 
 	@Override
 	public void insertNonFull(Block d) {
@@ -220,8 +249,10 @@ public class BNode implements BNodeInterface {
 	public void delete(int key) {
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
-			if (isLeaf())//check if leave == t-1
+			if (isLeaf()) {//check if leave == t-1
 				blocksList.remove(blockToDelete);
+				numOfBlocks--;
+			}
 			else
 				shiftOrMergeChildIfNeeded(key);
 		}
@@ -416,10 +447,6 @@ public class BNode implements BNodeInterface {
 	 */
 	private Block getMinKeyBlock(){
 		Block output = blocksList.get(0);
-		for (Block b : blocksList){
-			if (b.getKey()< output.getKey())
-				output=b;
-		}
 		return output;
 	}
 	/**
@@ -427,11 +454,7 @@ public class BNode implements BNodeInterface {
 	 * @return max key block
 	 */
 	private Block getMaxKeyBlock(){
-		Block output = blocksList.get(0);
-		for (Block b : blocksList){
-			if (b.getKey()> output.getKey())
-				output=b;
-		}
+		Block output = blocksList.get(numOfBlocks-1);
 		return output;
 	}
 }
