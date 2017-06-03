@@ -173,7 +173,7 @@ public class BNode implements BNodeInterface {
 			}
 			else if (b.getKey()<key){
 				int index =blocksList.indexOf(b);
-				if (blocksList.get(index+1).getKey()> key)
+				if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
 				    if (!childrenList.get(index+1).isLeaf())
 					    return childrenList.get(index+1).search(key);
                     else
@@ -186,7 +186,7 @@ public class BNode implements BNodeInterface {
                     return null;
             }
             else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()> key){
-                if (!childrenList.get(numOfBlocks-1).isLeaf())
+                if (numOfBlocks-1>= 0 && !childrenList.get(numOfBlocks-1).isLeaf())
                     return childrenList.get(numOfBlocks-1).search(key);
                 else
                     return null;
@@ -245,8 +245,20 @@ public class BNode implements BNodeInterface {
 
 	@Override
 	public MerkleBNode createHashNode() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MerkleBNode> childrenListMBT = new ArrayList<>(childrenList.size());
+		ArrayList<byte[]> blockByte = new ArrayList<>(blocksList.size());
+		if (!isLeaf()) {
+			for (BNode b : childrenList) {
+				childrenListMBT.add(b.createHashNode());
+			}
+		}
+		for (Block b : blocksList){
+			blockByte.add(b.getData());
+		}
+		byte[] hashMBT = HashUtils.sha1Hash(blockByte);
+		boolean isLeafMBT = this.isLeaf();
+		MerkleBNode output = new MerkleBNode(hashMBT,isLeafMBT,childrenListMBT);
+		return output;
 	}
 
 	/**
