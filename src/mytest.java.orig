@@ -5,6 +5,7 @@ import java.util.ArrayList;
  */
 public class mytest {
     public static void main(String[] args){
+<<<<<<< HEAD
         BTree tree = new BTree(2);
         ArrayList<Block> blocks = Block.blockFactory(11, 30);
         tree.insert(blocks.get(1));
@@ -13,8 +14,20 @@ public class mytest {
         tree.insert(blocks.get(3));
         tree.insert(blocks.get(4));
         tree.insert(blocks.get(5));
+=======
+        BTree tree = new BTree(3);
+        ArrayList<Block> blocks = Block.blockFactory(11, 20);
+        for (int i=0; i<blocks.size(); i++){
+            tree.insert(blocks.get(i));
+        }
+
+>>>>>>> origin/master
         BTreeLatex ev = new BTreeLatex(tree, "maayan");
         ev.addTreeState("insert1");
+        tree.delete(12);
+        ev.addTreeState("delete1");
+        tree.delete(11);
+        ev.addTreeState("delete2");
 
         ev.commitBufferedStates();
         ev.finish();
