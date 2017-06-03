@@ -21,11 +21,7 @@ public class BNode implements BNodeInterface {
 		this(t, false, 0);
 		this.childrenList.add(firstChild);
 	}
-	public BNode(int t, boolean isLeaf)
-	{
-		this.t=t;
-		this.isLeaf=isLeaf;
-	}
+
 
 	/**
 	 * Constructor for creating a <b>leaf</b> node with a single block.
@@ -201,10 +197,7 @@ public class BNode implements BNodeInterface {
 		if (isLeaf() == true)
 		{
 			while (i >= 0 && blocksList.get(i).getKey()>d.getKey())
-			{
-				blocksList.add(i+1,blocksList.get(i));
 				i--;
-			}
 			blocksList.add(i+1,d);
 			numOfBlocks = numOfBlocks+1;
 		}
@@ -268,7 +261,7 @@ public class BNode implements BNodeInterface {
     public void splitChild(int childIndex)
     {
         BNode y=childrenList.get(childIndex);
-        BNode z=new BNode(y.getT(),y.isLeaf());
+        BNode z=new BNode(y.getT(),y.isLeaf(),t-1);
         z.numOfBlocks=t-1;
         for (int i=0;i<t-1;i++)
         {
@@ -283,15 +276,15 @@ public class BNode implements BNodeInterface {
             }
         }
         y.numOfBlocks=t-1;
-        for(int i=numOfBlocks;i>=childIndex+1;i--)
+     /*   for(int i=numOfBlocks;i>=childIndex+1;i--)
         {
             childrenList.add(i+1,childrenList.get(i));
-        }
+        }*/
         childrenList.add(childIndex+1,z);
-        for(int i=numOfBlocks-1;i>=childIndex;i--)
+     /*   for(int i=numOfBlocks-1;i>=childIndex;i--)
         {
             blocksList.add(i+1,blocksList.get(i));
-        }
+        }*/
         blocksList.add(childIndex,y.getBlocksList().get(t-1));
         numOfBlocks=numOfBlocks+1;
 
