@@ -162,34 +162,37 @@ public class BNode implements BNodeInterface {
 	
 	
 	@Override
+	public Block search(int key){
+		int i=0;
+		while (i<numOfBlocks && blocksList.get(i).getKey()<key)
+			i++;
+		if (i<numOfBlocks && blocksList.get(i).getKey()==key)
+			return blocksList.get(i);
+		else if (!isLeaf())
+			return childrenList.get(i).search(key);
+		else
+			return null;
+	}
+	/**
 	public Block search(int key) {
 		for (Block b: blocksList){
 			if (b.getKey()==key){
 				return b;
 			}
-			else if (b.getKey()<key){
+			else if (!isLeaf() && b.getKey()<key){
 				int index =blocksList.indexOf(b);
 				if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
-					if (!childrenList.get(index+1).isLeaf())
 						return childrenList.get(index+1).search(key);
-					else
-						return null;
 			}
-			else if(getMinKeyBlock().getKey() > key && !isLeaf()){
-				if (!childrenList.get(0).isLeaf())
+			else if(!isLeaf() && getMinKeyBlock().getKey() > key ){
 					return childrenList.get(0).search(key);
-				else
-					return null;
 			}
-			else if (getMaxKeyBlock().getKey()< key && !isLeaf()){
-				if (!childrenList.get(numOfBlocks-1).isLeaf())
+			else if (!isLeaf() && getMaxKeyBlock().getKey()< key ){
 					return childrenList.get(numOfBlocks).search(key);
-				else
-					return null;
 			}
 		}
 		return null;
-	}
+	}**/
 	
 
 	@Override
@@ -216,26 +219,61 @@ public class BNode implements BNodeInterface {
 		}
 
 	}
+	/**public Block search(int key) {
+	 for (Block b: blocksList){
+	 if (b.getKey()==key){
+	 return b;
+	 }
+	 else if (!isLeaf() && b.getKey()<key){
+	 int index =blocksList.indexOf(b);
+	 if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
+	 if (!childrenList.get(index+1).isLeaf())
+	 return childrenList.get(index+1).search(key);
+	 else
+	 return null;
+	 }
+	 else if(getMinKeyBlock().getKey() > key && !isLeaf()){
+	 if (!childrenList.get(0).isLeaf())
+	 return childrenList.get(0).search(key);
+	 else
+	 return null;
+	 }
+	 else if (getMaxKeyBlock().getKey()< key && !isLeaf()){
+	 if (!childrenList.get(numOfBlocks-1).isLeaf())
+	 return childrenList.get(numOfBlocks).search(key);
+	 else
+	 return null;
+	 }
+	 }
+	 return null;
+	 }
+
+	 }**/
 
 	@Override
 	public void delete(int key) {
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
 			if (isLeaf()) {//check if leave == t-1
+				//shiftOrMergeChildIfNeeded(key);
 				blocksList.remove(blockToDelete);
 				numOfBlocks--;
-			}
-			else
-				shiftOrMergeChildIfNeeded(key);
+			} //else
+				//shiftOrMergeChildIfNeeded(key);//not good
 		}
-		else {
+		else if(blockToDelete!=null){
 			int i = 0;
-			BNode getDeep = childrenList.get(0);
-			while (blocksList.get(i).getKey()< key) {
-				getDeep = childrenList.get(i);
-				i++;
+			if (!isLeaf()) {
+				BNode getDeep = childrenList.get(0);
+				while (i<numOfBlocks && blocksList.get(i).getKey() < key) {
+					getDeep = childrenList.get(i+1);
+					i++;
+				}
+				if (getDeep!= null)
+					shiftOrMergeChildIfNeeded(i);
+				getDeep.delete(key);
 			}
-			getDeep.delete(key);
+			else return;
 		}
 	}
 
@@ -266,14 +304,15 @@ public class BNode implements BNodeInterface {
         BNode y=childrenList.get(childIndex);
         BNode z=new BNode(y.getT(),y.isLeaf(),t-1);
         z.numOfBlocks=t-1;
-        for (int i=0;i<t-1;i++)
-        {
-            z.getBlocksList().add(y.getBlocksList().get(i+t));
-            y.getBlocksList().remove(i+t);
+		int a=0;
+        while(a+t<y.getBlocksList().size()) {
+            z.getBlocksList().add(y.getBlocksList().get(a+t));
+            y.getBlocksList().remove(a+t);
         }
         if(!y.isLeaf())
         {
-            for(int i=0; i<t;i++)
+			int i =0;
+            while (i+t<y.getChildrenList().size())
             {
                 z.getChildrenList().add(y.getChildrenList().get(i+y.getT()));
                 y.getChildrenList().remove(y.getChildrenList().get(i+y.getT()));
@@ -284,7 +323,6 @@ public class BNode implements BNodeInterface {
         blocksList.add(childIndex,y.getBlocksList().get(t-1));
         y.getBlocksList().remove(t-1);
         numOfBlocks=numOfBlocks+1;
-
     }
 
 	/**
@@ -326,7 +364,8 @@ public class BNode implements BNodeInterface {
 			shiftFromRightSibling(childIndx);
 		else
 			mergeChildWithSibling(childIndx);
-	}
+		}
+
 
 	/**
 	 * Add additional block to the child node at childIndx, by shifting from left sibling.
@@ -342,6 +381,8 @@ public class BNode implements BNodeInterface {
         this.blocksList.remove(blockToAdd);
         BNode rightSibling = childrenList.get(childIndx);
         rightSibling.blocksList.add(blockToAdd);
+		leftSibling.numOfBlocks=leftSibling.numOfBlocks-1;
+		rightSibling.numOfBlocks=rightSibling.numOfBlocks+1;
 	}
 
 	/**
@@ -358,6 +399,8 @@ public class BNode implements BNodeInterface {
         this.blocksList.remove(blockToAdd);
         BNode leftSibling = childrenList.get(childIndx);
         leftSibling.blocksList.add(blockToAdd);
+		leftSibling.numOfBlocks=leftSibling.numOfBlocks+1;
+		rightSibling.numOfBlocks=rightSibling.numOfBlocks-1;
 	}
 
 	/**

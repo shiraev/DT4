@@ -6,16 +6,16 @@ import java.util.ArrayList;
 public class mytest {
     public static void main(String[] args){
         BTree tree = new BTree(2);
-        ArrayList<Block> blocks = Block.blockFactory(11, 30);
-        tree.insert(blocks.get(1));
-        tree.insert(blocks.get(2));
-        tree.insert(blocks.get(0));
-        tree.insert(blocks.get(3));
-        tree.insert(blocks.get(4));
-        tree.insert(blocks.get(5));
+        ArrayList<Block> blocks = Block.blockFactory(1, 20);
+        for (Block b : blocks){
+            tree.insert(b);
+        }
+
+
         BTreeLatex ev = new BTreeLatex(tree, "maayan");
         ev.addTreeState("insert1");
-
+        tree.delete(13);
+        ev.addTreeState("insert2");
         ev.commitBufferedStates();
         ev.finish();
     }
