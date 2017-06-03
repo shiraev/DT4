@@ -23,7 +23,6 @@ public class Tests {
 			hashInput.add(blocks.get(2).getData());
 			byte[] hashValue = HashUtils.sha1Hash(hashInput);
 			mbtExpected = new MerkleBNode(hashValue);
-			
 			if (!mbt.equals(mbtExpected)) {
 				System.out.println("Test: testLeafMerkleNode Failed");
 				return false;

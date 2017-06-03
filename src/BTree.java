@@ -75,7 +75,7 @@ public class BTree implements BTreeInterface {
 		{
 			root = new BNode(t,b);
 		}
-		else
+		else if(search(b.getKey())!=null)
 		{
 			if (root.getNumOfBlocks() == 2*t-1)
 			{
@@ -96,15 +96,14 @@ public class BTree implements BTreeInterface {
 
 	@Override
 	public void delete(int key) {
-		// TODO Auto-generated method stub
-		
+		if (root.getBlocksList().contains(key) & root.getNumOfBlocks()>1)
+			root.getBlocksList().remove(search(key));
+		root.delete(key);
+		//add what happen if root.size = 1 and u need to delete this block
 	}
 
 	@Override
 	public MerkleBNode createMBT() {
-		// TODO Auto-generated method stub
-		return null;
+		return root.createHashNode();
 	}
-
-
 }
