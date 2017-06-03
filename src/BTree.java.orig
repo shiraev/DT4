@@ -75,16 +75,16 @@ public class BTree implements BTreeInterface {
 		{
 			root = new BNode(t,b);
 		}
-<<<<<<< HEAD
-		else //if(search(b.getKey())!=null)
-=======
 		else if(search(b.getKey())==null)
->>>>>>> origin/master
 		{
 			if (root.getNumOfBlocks() == 2*t-1)
 			{
 				BNode a= new BNode(t, root);
+<<<<<<< HEAD
+				//a.getChildrenList().add(root);
+=======
 			//	a.getChildrenList().add(root);
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
 				a.splitChild(0);
 				int i = 0;
 				if (a.getBlocksList().get(0).getKey() < b.getKey())

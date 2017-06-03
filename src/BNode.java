@@ -190,35 +190,7 @@ public class BNode implements BNodeInterface {
 		}
 		return null;
 	}
-	/**
-	public Block search(int key) {
-		for (Block b: blocksList){
-			if (b.getKey()==key){
-				return b;
-			}
-			else if (b.getKey()<key){
-				int index =blocksList.indexOf(b);
-				if (index+1<=numOfBlocks-1 && blocksList.get(index+1).getKey()> key)
-				    if (!childrenList.get(index+1).isLeaf())
-					    return childrenList.get(index+1).search(key);
-                    else
-                        return null;
-			}
-			else if((blocksList.indexOf(b) == 0) && (b.getKey() > key)){
-                if (!childrenList.get(0).isLeaf())
-                    return childrenList.get(0).search(key);
-                else
-                    return null;
-            }
-            else if (blocksList.indexOf(b)== numOfBlocks-1 && b.getKey()< key){
-                if (!childrenList.get(numOfBlocks).isLeaf())
-                    return childrenList.get(numOfBlocks).search(key);
-                else
-                    return null;
-            }
-		}
-		return null;
-	}**/
+	
 
 	@Override
 	public void insertNonFull(Block d) {

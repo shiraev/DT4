@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="c2d9a7a1-5b6f-4931-8b30-297044f42e3d" name="Default" comment="" />
-=======
     <list default="true" id="c2d9a7a1-5b6f-4931-8b30-297044f42e3d" name="Default" comment="">
+<<<<<<< HEAD
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DT4/BNode.class" afterPath="$PROJECT_DIR$/out/production/DT4/BNode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DT4/BTree.class" afterPath="$PROJECT_DIR$/out/production/DT4/BTree.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BNode.java" afterPath="$PROJECT_DIR$/src/BNode.java" />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BTree.java" afterPath="$PROJECT_DIR$/src/BTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mytest.java" afterPath="$PROJECT_DIR$/src/mytest.java" />
     </list>
->>>>>>> origin/master
     <ignored path="DT4.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,11 +32,9 @@
       <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Block.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-              <folding>
-                <element signature="e#863#870#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="320">
+              <caret line="11" column="3" lean-forward="false" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,36 +49,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BTree.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BTree.java">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
-            <state relative-caret-position="375">
-              <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
-              <folding>
-                <element signature="e#2191#2192#0" expanded="true" />
-                <element signature="e#2226#2227#0" expanded="true" />
-=======
-            <state relative-caret-position="537">
-              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="372">
+              <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding>
                 <element signature="e#1399#1400#0" expanded="true" />
                 <element signature="e#1429#1430#0" expanded="true" />
-                <element signature="e#2188#2189#0" expanded="true" />
-                <element signature="e#2223#2224#0" expanded="true" />
->>>>>>> origin/master
+                <element signature="e#2189#2190#0" expanded="true" />
+                <element signature="e#2224#2225#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
-      <file leaf-file-name="BNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-=======
       <file leaf-file-name="BTreeLatex.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BTreeLatex.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -96,16 +77,20 @@
                 <element signature="e#14016#14017#0" expanded="true" />
                 <element signature="e#14067#14068#0" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="956">
+              <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
+              <folding />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mytest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mytest.java">
+      <file leaf-file-name="BNode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
->>>>>>> origin/master
+            <state relative-caret-position="404">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -114,42 +99,29 @@
       <file leaf-file-name="Tests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="375">
+            <state relative-caret-position="1000">
               <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
                 <element signature="e#1129#1130#0" expanded="true" />
                 <element signature="e#1169#1170#0" expanded="true" />
               </folding>
-=======
-            <state relative-caret-position="736">
-              <caret line="14" column="39" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="39" />
-              <folding />
->>>>>>> origin/master
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="BNode.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="302" column="0" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
+=======
       <file leaf-file-name="mytest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mytest.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
             <state relative-caret-position="480">
               <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-=======
-            <state relative-caret-position="849">
-              <caret line="270" column="9" selection-start-line="270" selection-start-column="9" selection-end-line="270" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayList.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/util/ArrayList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="652" column="0" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
->>>>>>> origin/master
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
               <folding />
             </state>
           </provider>
@@ -158,7 +130,7 @@
       <file leaf-file-name="ArrayList.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
+            <state relative-caret-position="16240">
               <caret line="443" column="0" lean-forward="false" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
               <folding />
             </state>
@@ -180,13 +152,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/Tests.java" />
 <<<<<<< HEAD
-        <option value="$PROJECT_DIR$/src/mytest.java" />
-=======
         <option value="$PROJECT_DIR$/src/BTreeLatex.java" />
->>>>>>> origin/master
-        <option value="$PROJECT_DIR$/src/BTree.java" />
         <option value="$PROJECT_DIR$/src/BNode.java" />
         <option value="$PROJECT_DIR$/src/mytest.java" />
+=======
+        <option value="$PROJECT_DIR$/src/mytest.java" />
+        <option value="$PROJECT_DIR$/src/BNode.java" />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
+        <option value="$PROJECT_DIR$/src/BTree.java" />
       </list>
     </option>
   </component>
@@ -211,7 +184,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -228,8 +201,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -602,30 +575,83 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#863#870#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="320">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MerkleBNode.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="360">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
-=======
-        <state relative-caret-position="3366">
-          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="880">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Tests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1000">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
+=======
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1169#1170#0" expanded="true" />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
           </folding>
->>>>>>> origin/master
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mytest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16240">
+          <caret line="443" column="0" lean-forward="false" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3040">
+          <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Block.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MerkleBNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -641,10 +667,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3400">
           <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding>
-            <element signature="e#2191#2192#0" expanded="true" />
-            <element signature="e#2226#2227#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -663,9 +686,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#863#870#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -680,18 +701,18 @@
     <entry file="file://$PROJECT_DIR$/src/BTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="33">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding>
 <<<<<<< HEAD
-            <element signature="e#2191#2192#0" expanded="true" />
-            <element signature="e#2226#2227#0" expanded="true" />
-=======
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
->>>>>>> origin/master
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
+=======
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
         </state>
       </provider>
     </entry>
@@ -707,9 +728,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#863#870#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -724,18 +743,18 @@
     <entry file="file://$PROJECT_DIR$/src/BTree.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-          <folding>
 <<<<<<< HEAD
-            <element signature="e#2191#2192#0" expanded="true" />
-            <element signature="e#2226#2227#0" expanded="true" />
-=======
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
->>>>>>> origin/master
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
+=======
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
         </state>
       </provider>
     </entry>
@@ -765,7 +784,6 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/HashUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -775,11 +793,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-          <folding>
-            <element signature="e#863#870#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="320">
+          <caret line="11" column="3" lean-forward="false" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -793,19 +809,18 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/util/ArrayList.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/ArrayList.java">
-=======
-    <entry file="file://$PROJECT_DIR$/src/MerkleBNode.java">
->>>>>>> origin/master
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
+        <state relative-caret-position="16240">
           <caret line="443" column="0" lean-forward="false" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests.java">
+<<<<<<< HEAD
+=======
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
+        <state relative-caret-position="1000">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="e#1129#1130#0" expanded="true" />
@@ -814,109 +829,50 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/mytest.java">
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/BTreeLatex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2674">
-          <caret line="498" column="0" selection-start-line="498" selection-start-column="0" selection-end-line="498" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#13931#13932#0" expanded="true" />
-            <element signature="e#13974#13975#0" expanded="true" />
-            <element signature="e#14016#14017#0" expanded="true" />
-            <element signature="e#14067#14068#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="652" column="0" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
->>>>>>> origin/master
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/src/BNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/Block.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2752">
-          <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="270" column="9" selection-start-line="270" selection-start-column="9" selection-end-line="270" selection-end-column="9" />
->>>>>>> origin/master
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/BTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
+        <state relative-caret-position="956">
           <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
-          <folding>
-            <element signature="e#2191#2192#0" expanded="true" />
-            <element signature="e#2226#2227#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-=======
-    <entry file="file://$PROJECT_DIR$/src/Tests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="14" column="39" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mytest.java">
+    <entry file="file://$PROJECT_DIR$/src/BNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+<<<<<<< HEAD
+        <state relative-caret-position="372">
+          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
           <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="404">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+>>>>>>> 26a276bc8006075f2cee279af56eb7f4c9e909d5
         </state>
       </provider>
     </entry>
->>>>>>> origin/master
+    <entry file="file://$PROJECT_DIR$/src/BNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="302" column="0" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
