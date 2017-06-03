@@ -230,10 +230,7 @@ public class BNode implements BNodeInterface {
 		if (isLeaf() == true)
 		{
 			while (i >= 0 && blocksList.get(i).getKey()>d.getKey())
-			{
-				blocksList.add(i+1,blocksList.get(i));
 				i--;
-			}
 			blocksList.add(i+1,d);
 			numOfBlocks = numOfBlocks+1;
 		}
@@ -256,8 +253,10 @@ public class BNode implements BNodeInterface {
 	public void delete(int key) {
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
-			if (isLeaf())//check if leave == t-1
+			if (isLeaf()) {//check if leave == t-1
 				blocksList.remove(blockToDelete);
+				numOfBlocks--;
+			}
 			else
 				shiftOrMergeChildIfNeeded(key);
 		}
