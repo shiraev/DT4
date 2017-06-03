@@ -269,6 +269,7 @@ public class BNode implements BNodeInterface {
         for (int i=0;i<t-1;i++)
         {
             z.getBlocksList().add(y.getBlocksList().get(i+t));
+            y.getBlocksList().remove(i+t);
         }
         if(!y.isLeaf())
         {
@@ -279,16 +280,9 @@ public class BNode implements BNodeInterface {
             }
         }
         y.numOfBlocks=t-1;
-     /*   for(int i=numOfBlocks;i>=childIndex+1;i--)
-        {
-            childrenList.add(i+1,childrenList.get(i));
-        }*/
         childrenList.add(childIndex+1,z);
-     /*   for(int i=numOfBlocks-1;i>=childIndex;i--)
-        {
-            blocksList.add(i+1,blocksList.get(i));
-        }*/
         blocksList.add(childIndex,y.getBlocksList().get(t-1));
+        y.getBlocksList().remove(t-1);
         numOfBlocks=numOfBlocks+1;
 
     }
