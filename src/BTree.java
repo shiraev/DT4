@@ -79,8 +79,8 @@ public class BTree implements BTreeInterface {
 		{
 			if (root.getNumOfBlocks() == 2*t-1)
 			{
-				BNode a= new BNode(t, false);
-				a.getChildrenList().add(root);
+				BNode a= new BNode(t, root);
+				//a.getChildrenList().add(root);
 				a.splitChild(0);
 				int i = 0;
 				if (a.getBlocksList().get(0).getKey() < b.getKey())

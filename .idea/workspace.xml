@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2d9a7a1-5b6f-4931-8b30-297044f42e3d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DT4/BNode.class" afterPath="$PROJECT_DIR$/out/production/DT4/BNode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DT4/BTree.class" afterPath="$PROJECT_DIR$/out/production/DT4/BTree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BNode.java" afterPath="$PROJECT_DIR$/src/BNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BTree.java" afterPath="$PROJECT_DIR$/src/BTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mytest.java" afterPath="$PROJECT_DIR$/src/mytest.java" />
     </list>
     <ignored path="DT4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,16 +43,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BTree.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="372">
+              <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding>
                 <element signature="e#1399#1400#0" expanded="true" />
                 <element signature="e#1429#1430#0" expanded="true" />
-                <element signature="e#2188#2189#0" expanded="true" />
-                <element signature="e#2223#2224#0" expanded="true" />
+                <element signature="e#2189#2190#0" expanded="true" />
+                <element signature="e#2224#2225#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BNode.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BNode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="849">
-              <caret line="270" column="9" selection-start-line="270" selection-start-column="9" selection-end-line="270" selection-end-column="9" />
+            <state relative-caret-position="375">
+              <caret line="302" column="0" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -167,9 +162,9 @@
         <option value="$PROJECT_DIR$/src/HashUtils.java" />
         <option value="$PROJECT_DIR$/src/Tests.java" />
         <option value="$PROJECT_DIR$/src/BTreeLatex.java" />
-        <option value="$PROJECT_DIR$/src/BTree.java" />
         <option value="$PROJECT_DIR$/src/BNode.java" />
         <option value="$PROJECT_DIR$/src/mytest.java" />
+        <option value="$PROJECT_DIR$/src/BTree.java" />
       </list>
     </option>
   </component>
@@ -653,8 +648,8 @@
           <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -701,8 +696,8 @@
           <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -741,8 +736,8 @@
           <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -840,14 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="270" column="9" selection-start-line="270" selection-start-column="9" selection-end-line="270" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="736">
@@ -866,14 +853,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="372">
+          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
           <folding>
             <element signature="e#1399#1400#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#2188#2189#0" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2224#2225#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="302" column="0" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
