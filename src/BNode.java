@@ -202,10 +202,10 @@ public class BNode implements BNodeInterface {
 		{
 			while (i >= 0 && blocksList.get(i).getKey()>d.getKey())
 			{
-				blocksList.set(i+1,blocksList.get(i));
+				blocksList.add(i+1,blocksList.get(i));
 				i--;
 			}
-			blocksList.set(i+1,d);
+			blocksList.add(i+1,d);
 			numOfBlocks = numOfBlocks+1;
 		}
 		else
@@ -273,14 +273,14 @@ public class BNode implements BNodeInterface {
         y.numOfBlocks=t-1;
         for(int i=numOfBlocks;i>=childIndex+1;i--)
         {
-            childrenList.set(i+1,childrenList.get(i));
+            childrenList.add(i+1,childrenList.get(i));
         }
-        childrenList.set(childIndex+1,z);
+        childrenList.add(childIndex+1,z);
         for(int i=numOfBlocks-1;i>=childIndex;i--)
         {
-            blocksList.set(i+1,blocksList.get(i));
+            blocksList.add(i+1,blocksList.get(i));
         }
-        blocksList.set(childIndex,y.getBlocksList().get(t-1));
+        blocksList.add(childIndex,y.getBlocksList().get(t-1));
         numOfBlocks=numOfBlocks+1;
 
     }
