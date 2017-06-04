@@ -252,6 +252,108 @@ public class BNode implements BNodeInterface {
 
 	@Override
 	public void delete(int key) {
+		int i=0;
+		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
+			i++;
+		if(i<numOfBlocks && key==blocksList.get(i).getKey()) {    //if it the last block at the node remove it
+			remove(i,key);
+		}
+		else {
+			if (childrenList.get(i).numOfBlocks==t-1) {
+				shiftOrMergeChildIfNeeded(i);
+				delete(key);
+			}
+			else
+				childrenList.get(i).delete(key);                    //recursively delete it
+		}
+	}
+
+	private void remove(int indexToRemove, int key) {
+		if (isLeaf){
+			blocksList.remove(indexToRemove);
+			numOfBlocks--;
+		}
+		else {
+			BNode y = getChildAt(indexToRemove);      // child num i
+			if (y.numOfBlocks >= t) {
+				Block replace = y.getMaxKeyBlock();          //save the max key block
+				delete(replace.getKey());              //delete it from the tree
+				blocksList.set(indexToRemove, replace);       //replace it with the removing element
+				/**numOfBlocks--;*/
+				return;
+			}
+			BNode z = getChildAt(indexToRemove+1);
+			if(z.numOfBlocks>=t){                 // child num i+1
+				Block replace = z.getMinKeyBlock();       //save the min key block
+				delete(replace.getKey());           //delete it from the tree
+				blocksList.set(indexToRemove, replace);    //replace it with the removing element
+				//numOfBlocks--;//*******
+				return;
+			}
+			mergeChildWithSibling(indexToRemove+1);    //merge z and y
+			/**delete(getBlockKeyAt(indexToRemove));         //delete it recursively**/
+			delete(key);
+		}
+	}
+	/**
+
+	public void delete(int key){
+		Block blockToDelete = search(key);
+		if (blockToDelete!=null){
+			if (blocksList.contains(blockToDelete)) {//delete from this node
+				int curinx = blocksList.indexOf(blockToDelete);
+				if (isLeaf()) {///this node is a leaf
+					if (numOfBlocks > t - 1) {//this node can be delete from
+						blocksList.remove(blockToDelete);
+						numOfBlocks--;
+					} else {//this node has t-1
+					}
+				}
+				else { ///this node isn't a leaf
+					if (childrenList.get(curinx).numOfBlocks > t - 1) {//y has t elements
+						Block predecessor = childrenList.get(curinx).getMaxKeyBlock();
+						//childrenList.get(curinx).delete(predecessor.getKey());
+						//blocksList.add(predecessor);
+						//blocksList.remove(blockToDelete);
+						BNode father = this.getDeep(this, predecessor);
+						father.shiftOrMergeChildIfNeeded(curinx);
+						blocksList.add(predecessor);
+						blocksList.remove(blockToDelete);
+					}
+					else if (childrenList.get(curinx).numOfBlocks == t-1 && childrenList.get(curinx+1).numOfBlocks> t-1){
+						Block predecessor = childrenList.get(curinx+1).getMinKeyBlock();
+						//childrenList.get(curinx+1).delete(predecessor.getKey());
+						//blocksList.add(predecessor);
+						//blocksList.remove(blockToDelete);
+						BNode father = this.getDeep(this, predecessor);
+						father.shiftOrMergeChildIfNeeded(curinx);
+						blocksList.add(predecessor);
+						blocksList.remove(blockToDelete);
+					}
+					else
+						mergeChildWithSibling(curinx);
+				}
+			}
+			else {//this node does not contain this key
+				BNode fatherNode = this;
+				fatherNode = fatherNode.getDeep(fatherNode, blockToDelete);
+				fatherNode.delete(key);
+				//shiftOrMergeChildIfNeeded(fatherNode.childrenList.indexOf(blockToDelete));
+			}
+		}
+	}
+	public BNode getDeep (BNode cur, Block b){
+		if (!cur.blocksList.contains(b)){
+			int index =0;
+			while (cur.blocksList.get(index).getKey()< b.getKey()){
+				index++;
+			}
+			return getDeep(cur.getChildAt(index), b);
+		}
+		return cur;
+	}
+
+	public void delete(int key) {
 		Block blockToDelete = search(key);
 		if (blockToDelete!= null && blocksList.contains(blockToDelete)) {
 			if (isLeaf()) {//check if leave == t-1
@@ -275,7 +377,7 @@ public class BNode implements BNodeInterface {
 			}
 			else return;
 		}
-	}
+	}**/
 
 	@Override
 	public MerkleBNode createHashNode() {
@@ -358,6 +460,8 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftOrMergeChildIfNeeded(int childIndx){
+		boolean b = true;
+		if (childrenList.get(childIndx).blocksList.size()>1)
 		if (childHasNonMinimalLeftSibling(childIndx))
 			shiftFromLeftSibling(childIndx);
 		else if (childHasNonMinimalRightSibling(childIndx))
@@ -365,6 +469,7 @@ public class BNode implements BNodeInterface {
 		else
 			mergeChildWithSibling(childIndx);
 		}
+
 
 
 	/**
@@ -455,15 +560,21 @@ public class BNode implements BNodeInterface {
 	 * @return min key block
 	 */
 	private Block getMinKeyBlock(){
-		Block output = blocksList.get(0);
-		return output;
+		if(isLeaf())
+		{
+			return  blocksList.get(0);
+		}
+		return  childrenList.get(0).getMinKeyBlock();
 	}
 	/**
 	 * Finds and returns the block with the max key in the subtree.
 	 * @return max key block
 	 */
 	private Block getMaxKeyBlock(){
-		Block output = blocksList.get(numOfBlocks-1);
-		return output;
+		if(isLeaf())
+		{
+			return  blocksList.get(blocksList.size()-1);
+		}
+		return  childrenList.get(childrenList.size()-1).getMaxKeyBlock();
 	}
 }
