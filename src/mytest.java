@@ -14,7 +14,7 @@ public class mytest {
 
         BTreeLatex ev = new BTreeLatex(tree, "maayan");
         ev.addTreeState("insert1");
-        tree.delete(8);
+        tree.delete(0);
         ev.addTreeState("insert2");
         ev.commitBufferedStates();
         ev.finish();

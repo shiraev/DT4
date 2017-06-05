@@ -86,6 +86,7 @@ public class BTree implements BTreeInterface {
 					i++;
 				a.getChildrenList().get(i).insertNonFull(b);
 				root = a;
+				root.setIsLeaf(false);
 			}
 			else
 				root.insertNonFull(b);
@@ -100,6 +101,8 @@ public class BTree implements BTreeInterface {
 		root.delete(key);
 		if (root.getNumOfBlocks()==0){
 			root=root.getChildAt(0);
+			if (root.getChildrenList().size()==0)
+				root.setIsLeaf(true);
 		}
 		//add what happen if root.size = 1 and u need to delete this block
 	}

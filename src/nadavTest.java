@@ -75,10 +75,35 @@ public class nadavTest {
 
         BTree tree = new BTree(2);
         initTree(tree,100);
+        BTreeLatex J= new BTreeLatex(tree,"boris");
+        J.addTreeState("insert");
+        J.commitBufferedStates();
+        J.finish();
         tree.delete(74);
+        J.addTreeState("delete 74");
+        J.commitBufferedStates();
+        J.finish();
+        J = new BTreeLatex(tree,"1");
+        J.addTreeState("Deleted 74");
         tree.delete(89);
+        J.addTreeState("delete 89");
+        J.commitBufferedStates();
+        J.finish();
+        J = new BTreeLatex(tree,"2");
+        J.addTreeState("Deleted 89");
         tree.delete(32);
+        J.addTreeState("delete 32");
+        J.commitBufferedStates();
+        J.finish();
+        J = new BTreeLatex(tree,"3");
+        J.addTreeState("Deleted 32");
         tree.delete(103);//should not change anything in the tree because the key is not in the tree.
+        J.addTreeState("delete 103");
+        J.commitBufferedStates();
+        J.finish();
+        J.addTreeState("insert");
+        J.commitBufferedStates();
+        J.finish();
         ArrayList<Integer> arrayList = inorder(new ArrayList<>(), tree.getRoot());
         ArrayList<Integer> expected = getIntegers(101);
         Test(null, tree.search(74), "Delete - Test 1 of 8", "the key 74 is still in the tree");
@@ -90,6 +115,7 @@ public class nadavTest {
         Test(expected, arrayList, "Delete - Test 4 of 8", "keys are in the wrong place in the tree");
 
         for (int i = 0; i < 50; i++) {
+            System.out.print(""+i);
             SecureRandom rnd = new SecureRandom();
             int keyToDelete = rnd.nextInt(100);
             Integer DeletedKey = keyToDelete;
