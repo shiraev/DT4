@@ -552,12 +552,19 @@ public class BNode implements BNodeInterface {
         BNode nodeToMerge = childrenList.get(childIndx);
         BNode rightSibling = childrenList.get(childIndx+1);
         Block headBlock = blocksList.get(childIndx);
-        rightSibling.blocksList.add(headBlock);
-        for (Block b : nodeToMerge.blocksList){
-            rightSibling.blocksList.add(b);
-        }
-		for (BNode Bn : nodeToMerge.childrenList){
-			rightSibling.childrenList.add(Bn);
+        rightSibling.blocksList.add(0,headBlock);
+		rightSibling.numOfBlocks++;
+        //for (Block b : nodeToMerge.blocksList){
+            //rightSibling.blocksList.add(0,b);
+        //}
+        for (int i=0; i<nodeToMerge.getBlocksList().size(); i++){
+			rightSibling.blocksList.add(i,nodeToMerge.blocksList.get(i));
+		}
+		//for (BNode Bn : nodeToMerge.childrenList){
+			//rightSibling.childrenList.add(0,Bn);
+		//}
+		for (int i=0; i<nodeToMerge.getBlocksList().size()+1; i++){
+			rightSibling.childrenList.add(i,nodeToMerge.childrenList.get(i));
 		}
 		rightSibling.numOfBlocks = rightSibling.numOfBlocks+nodeToMerge.numOfBlocks;
 		blocksList.remove(headBlock);
