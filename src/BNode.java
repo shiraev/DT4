@@ -460,8 +460,6 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void shiftOrMergeChildIfNeeded(int childIndx){
-		boolean b = true;
-		if (childrenList.get(childIndx).blocksList.size()>1)
 		if (childHasNonMinimalLeftSibling(childIndx))
 			shiftFromLeftSibling(childIndx);
 		else if (childHasNonMinimalRightSibling(childIndx))
@@ -478,16 +476,19 @@ public class BNode implements BNodeInterface {
 	 */
 	private void shiftFromLeftSibling(int childIndx){
         //when the sibling have at least t element
-        BNode leftSibling = childrenList.get(childIndx - 1);
+		BNode nodeToShiftTo = childrenList.get(childIndx);
+        BNode leftSibling = childrenList.get(childIndx-1);//childIndx-1
         Block blockToShift = leftSibling.blocksList.get(numOfBlocks - 1);
-        leftSibling.blocksList.remove(blockToShift);
+		int index = blocksList.indexOf(blockToShift);
+		nodeToShiftTo.childrenList.add(0,leftSibling.getChildAt(index+1));
+		leftSibling.blocksList.remove(blockToShift);
+		leftSibling.childrenList.remove(index+1);
         Block blockToAdd = this.blocksList.get(childIndx);
         this.blocksList.add(blockToShift);
         this.blocksList.remove(blockToAdd);
-        BNode rightSibling = childrenList.get(childIndx);
-        rightSibling.blocksList.add(blockToAdd);
-		leftSibling.numOfBlocks=leftSibling.numOfBlocks-1;
-		rightSibling.numOfBlocks=rightSibling.numOfBlocks+1;
+        nodeToShiftTo.blocksList.add(blockToAdd);
+		leftSibling.numOfBlocks--;
+		nodeToShiftTo.numOfBlocks++;
 	}
 
 	/**
@@ -496,16 +497,19 @@ public class BNode implements BNodeInterface {
 	 */
 	private void shiftFromRightSibling(int childIndx){
         //when the sibling have at least t element
+		BNode nodeToShiftTO = childrenList.get(childIndx);
         BNode rightSibling = childrenList.get(childIndx + 1);
         Block blockToShift = rightSibling.blocksList.get(0);
+		//int index = blocksList.indexOf(blockToShift);
+		nodeToShiftTO.childrenList.add(nodeToShiftTO.childrenList.size(),rightSibling.getChildAt(0));
         rightSibling.blocksList.remove(blockToShift);
+		rightSibling.childrenList.remove(0);
         Block blockToAdd = this.blocksList.get(childIndx);
         this.blocksList.add(blockToShift);
         this.blocksList.remove(blockToAdd);
-        BNode leftSibling = childrenList.get(childIndx);
-        leftSibling.blocksList.add(blockToAdd);
-		leftSibling.numOfBlocks=leftSibling.numOfBlocks+1;
-		rightSibling.numOfBlocks=rightSibling.numOfBlocks-1;
+        nodeToShiftTO.blocksList.add(blockToAdd);
+		nodeToShiftTO.numOfBlocks++;
+		rightSibling.numOfBlocks--;
 	}
 
 	/**
@@ -535,7 +539,10 @@ public class BNode implements BNodeInterface {
             leftSibling.blocksList.add(b);
         }
         for (BNode Bn : nodeToMerge.childrenList){
-			leftSibling.childrenList.add(Bn);
+			if (!leftSibling.isLeaf())
+				leftSibling.childrenList.add(Bn);
+			else
+				break;
 		}
         leftSibling.numOfBlocks = leftSibling.numOfBlocks+nodeToMerge.numOfBlocks;
 		blocksList.remove(headBlock);
@@ -554,17 +561,12 @@ public class BNode implements BNodeInterface {
         Block headBlock = blocksList.get(childIndx);
         rightSibling.blocksList.add(0,headBlock);
 		rightSibling.numOfBlocks++;
-        //for (Block b : nodeToMerge.blocksList){
-            //rightSibling.blocksList.add(0,b);
-        //}
         for (int i=0; i<nodeToMerge.getBlocksList().size(); i++){
 			rightSibling.blocksList.add(i,nodeToMerge.blocksList.get(i));
 		}
-		//for (BNode Bn : nodeToMerge.childrenList){
-			//rightSibling.childrenList.add(0,Bn);
-		//}
 		for (int i=0; i<nodeToMerge.getBlocksList().size()+1; i++){
-			rightSibling.childrenList.add(i,nodeToMerge.childrenList.get(i));
+			if (!rightSibling.isLeaf())
+				rightSibling.childrenList.add(i,nodeToMerge.childrenList.get(i));
 		}
 		rightSibling.numOfBlocks = rightSibling.numOfBlocks+nodeToMerge.numOfBlocks;
 		blocksList.remove(headBlock);
