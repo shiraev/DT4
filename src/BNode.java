@@ -252,7 +252,21 @@ public class BNode implements BNodeInterface {
 
 	 }**/
 
-	@Override
+	@Override/*
+	public void delete(int key) {
+		int i=getIndex(key);
+		if(i<numOfBlocks && key==blocksList.get(i).getKey()) {    //if it the last block at the node remove it
+			remove(i,key);
+		}
+		else {
+
+			shiftOrMergeChildIfNeeded(i);
+			if (numOfBlocks<t)
+				delete(key);
+			else
+				childrenList.get(i).delete(key);                    //recursively delete it
+		}
+	}*/
 	public void delete(int key) {
 		int i=0;
 		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
@@ -260,15 +274,10 @@ public class BNode implements BNodeInterface {
 		if(i<numOfBlocks && key==blocksList.get(i).getKey()) {    //if it the last block at the node remove it
 			remove(i,key);
 		}
-		else if (i!=0)
-			if (i<numOfBlocks && key>blocksList.get(i).getKey()){
-				i--;
-		}
-		else if (!isLeaf()){
-			if (childrenList.get(i).numOfBlocks==(t-1)) {
-				shiftOrMergeChildIfNeeded(i);
+		else {
+			boolean t=shiftOrMergeChildIfNeeded(i);
+			if(t)
 				delete(key);
-			}
 			else
 				childrenList.get(i).delete(key);                    //recursively delete it
 		}
@@ -301,6 +310,93 @@ public class BNode implements BNodeInterface {
 			delete(key);
 		}
 	}
+	public int getIndex(int key){
+		int i=0;
+		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
+			i++;
+		if (i!=0){
+			if (i == numOfBlocks|| i<numOfBlocks && blocksList.get(i).getKey()<key)
+				i--;
+		}
+		return i;
+	}
+	/**
+	public void delete(int key) {
+		int i = getIndex(key);
+		if(i<numOfBlocks && key==blocksList.get(i).getKey()) {    //if it the last block at the node remove it
+			remove(i,key);
+		}
+
+		else if (!isLeaf()){
+			if (childrenList.get(i).numOfBlocks==(t-1)) {
+				shiftOrMergeChildIfNeeded(i);
+				delete(key);
+			}
+			else
+				childrenList.get(i).delete(key);                    //recursively delete it
+		}
+		else
+			childrenList.get(i).delete(key);
+	}
+	/*public void delete(int key){
+		int index = getIndex(key);
+		if (index==0){
+			if (blocksList.get(0).getKey()==key);
+			remove(0,key);
+			if (blocksList.get(0).getKey()!=key);
+			childrenList.get(0).delete();
+		}
+		if (isLeaf()) {
+			blocksList.remove(index);
+		}
+		else if (childHasNonMinimalLeftSibling(index)){
+			Block pre = getMinKeyBlock();
+			blocksList.set(index,pre);
+		}
+		else if (childHasNonMinimalRightSibling(index)){
+
+		}
+
+	}
+	public int getIndex(int key){
+		int i=0;
+		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
+			i++;
+		if (i!=0){
+			if (i == numOfBlocks|| i<numOfBlocks && blocksList.get(i).getKey()<key)
+				i--;
+		}
+		return i;
+	}
+
+	private void remove(int indexToRemove, int key) {
+		if (isLeaf){
+			blocksList.remove(indexToRemove);
+			numOfBlocks--;
+		}
+		else {
+			BNode y = getChildAt(indexToRemove);      // child num i
+			if (y.numOfBlocks >= t) {
+				Block replace = y.getMaxKeyBlock();          //save the max key block
+				delete(replace.getKey());              //delete it from the tree
+				blocksList.set(indexToRemove, replace);       //replace it with the removing element
+
+				return;
+			}
+			BNode z = getChildAt(indexToRemove+1);
+			if(z.numOfBlocks>=t){                 // child num i+1
+				Block replace = z.getMinKeyBlock();       //save the min key block
+				delete(replace.getKey());           //delete it from the tree
+				blocksList.set(indexToRemove, replace);    //replace it with the removing element
+				//numOfBlocks--;//*******
+				return;
+			}
+			mergeChildWithSibling(indexToRemove+1);    //merge z and y
+
+			delete(key);
+		}
+	}**/
+
 	/**
 
 	 public void delete(int key){
@@ -465,13 +561,29 @@ public class BNode implements BNodeInterface {
 	 *
 	 * @param childIndx
 	 */
+	/*
 	private void shiftOrMergeChildIfNeeded(int childIndx){
 		if (childHasNonMinimalLeftSibling(childIndx))
 			shiftFromLeftSibling(childIndx);
 		else if (childHasNonMinimalRightSibling(childIndx))
 			shiftFromRightSibling(childIndx);
 		else
-			mergeChildWithSibling(childIndx);
+			if (childrenList.size()!=1)
+				mergeChildWithSibling(childIndx);
+	}*/
+	private boolean shiftOrMergeChildIfNeeded(int childIndx) {
+		if (getChildAt(childIndx).numOfBlocks >= t)
+			return false;
+		if (childHasNonMinimalLeftSibling(childIndx)) {
+			shiftFromLeftSibling(childIndx);
+			return true;
+		}
+		if (childHasNonMinimalRightSibling(childIndx)) {
+			shiftFromRightSibling(childIndx);
+			return true;
+		}
+		mergeChildWithSibling(childIndx);
+		return true;
 	}
 
 
@@ -566,8 +678,8 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void mergeWithRightSibling(int childIndx){
-		BNode nodeToMerge = childrenList.get(childIndx);
-		BNode rightSibling = childrenList.get(childIndx+1);
+		BNode nodeToMerge = childrenList.get(childIndx+1);
+		BNode rightSibling = childrenList.get(childIndx);
 		Block headBlock = blocksList.get(childIndx);
 		rightSibling.blocksList.add(0,headBlock);
 		rightSibling.numOfBlocks++;
