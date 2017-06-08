@@ -95,7 +95,7 @@ public class BTree implements BTreeInterface {
 	}
 
 	@Override
-	public void delete(int key) {
+	public void delete(int key) {/*
 		if (root.getBlocksList().contains(key) & root.getNumOfBlocks()>1)
 			root.getBlocksList().remove(root.search(key));
 		root.delete(key);
@@ -103,8 +103,17 @@ public class BTree implements BTreeInterface {
 			root=root.getChildAt(0);
 			if (root.getChildrenList().size()==0)
 				root.setIsLeaf(true);
-		}
+		}*/
 		//add what happen if root.size = 1 and u need to delete this block
+		if (root.isLeaf()){
+			int index = root.getIndex(key);
+			if (root.getBlocksList().get(index).getKey()==key)
+				root.getBlocksList().remove(index);
+		}
+		root.delete(key);
+		if (root.getNumOfBlocks()==0 & !root.isLeaf()){
+			root=root.getChildAt(0);
+		}
 	}
 
 	@Override

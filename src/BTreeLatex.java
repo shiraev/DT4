@@ -468,10 +468,11 @@ public class BTreeLatex {
 
     private boolean useDeletions()  {
         boolean result = true;
-        for (int i = 0; i < deletions.length - 1 & result; i++) {
+        for (int i = 0; i < 2 & result; i++) {
             clearBuffer();
             addTreeState("before deleting " + deletions[i]);
             tree.delete(deletions[i]);
+            finish();
             result = addTreeState("after deleting " + deletions[i]) && tree.search(deletions[i]) == null;
             if (totalBlocks != (deletions.length - (i + 1)) & result) {
                 System.out.println("Total blocks in tree is " + totalBlocks + " and supposed to be " + (deletions.length - (i + 1)));

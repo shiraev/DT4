@@ -533,12 +533,12 @@ public class BNode implements BNodeInterface {
 		else{
 			if (!childrenList.get(index).isMinSize()) {
 				Block pre = getChildAt(index).getMaxKeyBlock();
-				delete(pre.getKey());
+				getChildAt(index).delete(pre.getKey());
 				blocksList.set(index, pre);
 			}
 			else if (!childrenList.get(index+1).isMinSize()) {
-				Block suc = getChildAt(index).getMinKeyBlock();
-				delete(suc.getKey());
+				Block suc = getChildAt(index+1).getMinKeyBlock();
+				getChildAt(index+1).delete(suc.getKey());
 				blocksList.set(index, suc);
 			}
 			else {
