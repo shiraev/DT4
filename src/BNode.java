@@ -221,7 +221,7 @@ public class BNode implements BNodeInterface {
 		}
 
 	}
-	
+
 	/**public Block search(int key) {
 	 for (Block b: blocksList){
 	 if (b.getKey()==key){
@@ -536,6 +536,7 @@ public class BNode implements BNodeInterface {
 	 * @return
 	 */
 	private boolean childHasNonMinimalLeftSibling(int childIndx){
+		//check if there is a child to shift from
 		if (childIndx==0)
 			return false;
 		if (childrenList.get(childIndx-1).numOfBlocks>=t)
@@ -549,6 +550,7 @@ public class BNode implements BNodeInterface {
 	 * @return
 	 */
 	private boolean childHasNonMinimalRightSibling(int childIndx){
+		//check if there is a child to shift from
 		if (childIndx==childrenList.size()-1)
 			return false;
 		if (childrenList.get(childIndx+1).numOfBlocks>=t)
@@ -583,6 +585,7 @@ public class BNode implements BNodeInterface {
 			shiftFromRightSibling(childIndx);
 			return true;
 		}
+		//do something that make sure that if its only one child it wont merge
 		mergeChildWithSibling(childIndx);
 		return true;
 	}
@@ -605,9 +608,9 @@ public class BNode implements BNodeInterface {
 		}
 		leftSibling.blocksList.remove(blockToShift);
 		Block blockToAdd = this.blocksList.get(childIndx-1);
-		this.blocksList.add(blockToShift);
 		this.blocksList.remove(blockToAdd);
-		nodeToShiftTo.blocksList.add(blockToAdd);
+		this.blocksList.add(blockToShift);
+		nodeToShiftTo.blocksList.add(0,blockToAdd);
 		leftSibling.numOfBlocks--;
 		nodeToShiftTo.numOfBlocks++;
 	}
@@ -623,13 +626,13 @@ public class BNode implements BNodeInterface {
 		Block blockToShift = rightSibling.blocksList.get(0);
 		//int index = blocksList.indexOf(blockToShift);
 		if (!nodeToShiftTo.isLeaf()) {
-			nodeToShiftTo.childrenList.add(nodeToShiftTo.childrenList.size(), rightSibling.getChildAt(0));
+			nodeToShiftTo.childrenList.add(rightSibling.getChildAt(0));
 			rightSibling.childrenList.remove(0);
 		}
 		rightSibling.blocksList.remove(blockToShift);
 		Block blockToAdd = this.blocksList.get(childIndx);
-		this.blocksList.add(blockToShift);
 		this.blocksList.remove(blockToAdd);
+		this.blocksList.add(blockToShift);
 		nodeToShiftTo.blocksList.add(blockToAdd);
 		nodeToShiftTo.numOfBlocks++;
 		rightSibling.numOfBlocks--;
@@ -652,6 +655,7 @@ public class BNode implements BNodeInterface {
 	 * The left sibling node is removed.
 	 * @param childIndx
 	 */
+
 	private void mergeWithLeftSibling(int childIndx){
 		BNode nodeToMerge = childrenList.get(childIndx);
 		BNode leftSibling = childrenList.get(childIndx-1);
@@ -664,8 +668,6 @@ public class BNode implements BNodeInterface {
 		for (BNode Bn : nodeToMerge.childrenList){
 			if (!leftSibling.isLeaf())
 				leftSibling.childrenList.add(Bn);
-			else
-				break;
 		}
 		leftSibling.numOfBlocks = leftSibling.numOfBlocks+nodeToMerge.numOfBlocks;
 		blocksList.remove(headBlock);
@@ -679,15 +681,15 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 	private void mergeWithRightSibling(int childIndx){
-		BNode nodeToMerge = childrenList.get(childIndx+1);
-		BNode rightSibling = childrenList.get(childIndx);
+		BNode nodeToMerge = childrenList.get(childIndx);
+		BNode rightSibling = childrenList.get(childIndx+1);
 		Block headBlock = blocksList.get(childIndx);
 		rightSibling.blocksList.add(0,headBlock);
 		rightSibling.numOfBlocks++;
-		for (int i=0; i<nodeToMerge.getBlocksList().size(); i++){
+		for (int i=0; i<nodeToMerge.getBlocksList().size(); i++){//not sure about this loop need to debug
 			rightSibling.blocksList.add(i,nodeToMerge.blocksList.get(i));
 		}
-		for (int i=0; i<nodeToMerge.getBlocksList().size()+1; i++){
+		for (int i=0; i<nodeToMerge.getBlocksList().size()+1; i++){//samexac
 			if (!rightSibling.isLeaf())
 				rightSibling.childrenList.add(i,nodeToMerge.childrenList.get(i));
 		}
@@ -702,9 +704,7 @@ public class BNode implements BNodeInterface {
 	 */
 	private Block getMinKeyBlock(){
 		if(isLeaf())
-		{
 			return  blocksList.get(0);
-		}
 		return  childrenList.get(0).getMinKeyBlock();
 	}
 	/**
@@ -713,9 +713,7 @@ public class BNode implements BNodeInterface {
 	 */
 	private Block getMaxKeyBlock(){
 		if(isLeaf())
-		{
 			return  blocksList.get(blocksList.size()-1);
-		}
 		return  childrenList.get(childrenList.size()-1).getMaxKeyBlock();
 	}
 }
