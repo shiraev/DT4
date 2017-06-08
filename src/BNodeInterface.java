@@ -55,7 +55,7 @@ public interface BNodeInterface {
 	 * @param key 
 	 * @return the block if found, null otherwise.
 	 */
-	public abstract void delete(int key);
+	public abstract void delete(int key) throws Exception;
 	
 	/**
 	 * @return the corresponding Merkle-B-Tree node of this BNode.
