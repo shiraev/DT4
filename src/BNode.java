@@ -219,10 +219,7 @@ public class BNode implements BNodeInterface {
 			}
 			childrenList.get(i+1).insertNonFull(d);
 		}
-
 	}
-
-
 
 	/**public Block search(int key) {
 	 for (Block b: blocksList){
@@ -721,10 +718,19 @@ public class BNode implements BNodeInterface {
 	 */
 	private void mergeChildWithSibling(int childIndx){
 		//when there isn't sibling with t element
-		if (childIndx!=0)
-			mergeWithLeftSibling(childIndx);
-		else
-			mergeWithRightSibling(childIndx);
+		boolean isRoot;
+		if (childIndx!=0){
+			isRoot = mergeWithLeftSibling(childIndx);}
+		else{
+			isRoot = mergeWithRightSibling(childIndx);}
+		if (isRoot)
+			isRoot();
+	}
+
+	public void isRoot(){
+		BNode childNode = childrenList.get(0);
+		for (int i=0; i<childNode.numOfBlocks; i++)
+			blocksList.add(i,childNode.getBlockAt(i));
 	}
 
 	/**
@@ -733,7 +739,7 @@ public class BNode implements BNodeInterface {
 	 * @param childIndx
 	 */
 
-	private void mergeWithLeftSibling(int childIndx){
+	private boolean mergeWithLeftSibling(int childIndx){
 		BNode nodeToMerge = childrenList.get(childIndx);
 		BNode leftSibling = childrenList.get(childIndx-1);
 		Block headBlock = blocksList.get(childIndx-1);
@@ -750,6 +756,9 @@ public class BNode implements BNodeInterface {
 		blocksList.remove(headBlock);
 		childrenList.remove(nodeToMerge);
 		numOfBlocks--;
+		if (blocksList.size()==0)
+			return true;
+		return false;
 	}
 
 	/**
@@ -757,7 +766,7 @@ public class BNode implements BNodeInterface {
 	 * The right sibling node is removed.
 	 * @param childIndx
 	 */
-	private void mergeWithRightSibling(int childIndx){
+	private boolean mergeWithRightSibling(int childIndx){
 		BNode nodeToMerge = childrenList.get(childIndx);
 		BNode rightSibling = childrenList.get(childIndx+1);
 		Block headBlock = blocksList.get(childIndx);
@@ -774,6 +783,9 @@ public class BNode implements BNodeInterface {
 		blocksList.remove(headBlock);
 		childrenList.remove(nodeToMerge);
 		numOfBlocks--;
+		if (blocksList.size()==0)
+			return true;
+		return false;
 	}
 	/**
 	 * Finds and returns the block with the min key in the subtree.
