@@ -29,7 +29,7 @@ public interface BTreeInterface {
 	 * Delete a block by its key. 
 	 * @param key
 	 */
-	public abstract void delete(int key);
+	public abstract void delete(int key) throws Exception;
 
 	/**
 	 * Computes the complete Merkle-B-Tree of this B-Tree

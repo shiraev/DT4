@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class nadavTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("-------------Start of Tests-------------");
         testInsert();
         testSearch();
@@ -71,7 +71,7 @@ public class nadavTest {
         Test(expected, Arrays.toString(array), "CreateMBT - Test 1 of 1");
     }
 
-    private static void testDelete() {
+    private static void testDelete() throws Exception {
 
         BTree tree = new BTree(2);
         initTree(tree,100);

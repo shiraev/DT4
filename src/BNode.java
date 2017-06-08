@@ -500,7 +500,7 @@ public class BNode implements BNodeInterface {
 	}*/
 
 	@Override
-	public void delete(int key) throws Exception {
+	public void delete(int key)  {
 		int deep = getIndex(key);
 		if (blocksList.get(deep).getKey()==key)
 			removeCases(deep,key);
@@ -513,7 +513,7 @@ public class BNode implements BNodeInterface {
 		}
 	}
 
-	public void removeCases(int index, int key) throws Exception {
+	public void removeCases(int index, int key)  {
 		if (isLeaf()){//unnecessary but works
 			blocksList.remove(index);
 			numOfBlocks--;/*
@@ -536,7 +536,7 @@ public class BNode implements BNodeInterface {
 				delete(pre.getKey());
 				blocksList.set(index, pre);
 			}
-			else if (index!=numOfBlocks-1 && !childrenList.get(index+1).isMinSize()) {
+			else if (!childrenList.get(index+1).isMinSize()) {
 				Block suc = getChildAt(index).getMinKeyBlock();
 				delete(suc.getKey());
 				blocksList.set(index, suc);

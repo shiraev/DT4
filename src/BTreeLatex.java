@@ -466,7 +466,7 @@ public class BTreeLatex {
         return result;
     }
 
-    private boolean useDeletions() {
+    private boolean useDeletions()  {
         boolean result = true;
         for (int i = 0; i < deletions.length - 1 & result; i++) {
             clearBuffer();
