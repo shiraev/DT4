@@ -205,51 +205,6 @@ public class BNode implements BNodeInterface {
 	}
 
 
-	/*
-	public void delete(int key) {
-		int i=0;
-		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
-			i++;
-		if(i<numOfBlocks && key==blocksList.get(i).getKey()) {    //if it the last block at the node remove it
-			remove(i,key);
-		}
-		else {
-			boolean t=shiftOrMergeChildIfNeeded(i);
-			if(t)
-				delete(key);
-			else
-				childrenList.get(i).delete(key);                    //recursively delete it
-		}
-	}
-
-	private void remove(int indexToRemove, int key) {
-		if (isLeaf){
-			blocksList.remove(indexToRemove);
-			numOfBlocks--;
-		}
-		else {
-			BNode y = getChildAt(indexToRemove);      // child num i
-			if (y.numOfBlocks >= t) {
-				Block replace = y.getMaxKeyBlock();          //save the max key block
-				delete(replace.getKey());              //delete it from the tree
-				blocksList.set(indexToRemove, replace);       //replace it with the removing element
-
-				return;
-			}
-			BNode z = getChildAt(indexToRemove+1);
-			if(z.numOfBlocks>=t){                 // child num i+1
-				Block replace = z.getMinKeyBlock();       //save the min key block
-				delete(replace.getKey());           //delete it from the tree
-				blocksList.set(indexToRemove, replace);    //replace it with the removing element
-				//numOfBlocks--;//*******
-				return;
-			}
-			mergeChildWithSibling(indexToRemove+1);    //merge z and y
-			delete(key);
-		}
-	}
-
-	}*/
 
 	@Override
 	public void delete(int key)  {
