@@ -371,7 +371,7 @@ public class BNode implements BNodeInterface {
 		leftSibling.blocksList.remove(blockToShift);
 		Block blockToAdd = this.blocksList.get(childIndx-1);
 		this.blocksList.remove(blockToAdd);
-		this.blocksList.add(0,blockToShift);
+		this.blocksList.add(childIndx-1,blockToShift);
 		nodeToShiftTo.blocksList.add(0,blockToAdd);
 		leftSibling.numOfBlocks--;
 		nodeToShiftTo.numOfBlocks++;
@@ -394,7 +394,7 @@ public class BNode implements BNodeInterface {
 		rightSibling.blocksList.remove(blockToShift);
 		Block blockToAdd = this.blocksList.get(childIndx);
 		this.blocksList.remove(blockToAdd);
-		this.blocksList.add(blockToShift);
+		this.blocksList.add(childIndx,blockToShift);
 		nodeToShiftTo.blocksList.add(blockToAdd);
 		nodeToShiftTo.numOfBlocks++;
 		rightSibling.numOfBlocks--;
@@ -426,7 +426,8 @@ public class BNode implements BNodeInterface {
 			for (int i = 1; i < childNode.childrenList.size(); i++) {
 				childrenList.add(i, childNode.childrenList.get(i));
 
-			}}
+			}
+			}
 		}
 	}
 
