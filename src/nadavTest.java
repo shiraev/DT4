@@ -2,25 +2,36 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Random;
 
 /**
  * @author nadav
  */
 public class nadavTest {
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("-------------Start of Tests-------------");
-        testInsert();
-        testSearch();
+    public static void main(String[] args) {
+        RandomTests();
+//        Tests();
+    }
+    private static void RandomTests(){
+        System.out.println("-------------Start of Random Tests-------------");
+        testInsert(true);
+        testSearch(true);
         testCreateMBT();
-        testDelete();
+        testDelete(true);
+        System.out.println("-------------End of Random Tests-------------");
+    }
+    private static void Tests(){
+        System.out.println("-------------Start of Tests-------------");
+        testInsert(false);
+        testSearch(false);
+        testCreateMBT();
+        testDelete(false);
         System.out.println("-------------End of Tests-------------");
     }
 
-    private static void testInsert() {
+    private static void testInsert(boolean random) {
         BTree firstTree = new BTree(3);
-        initTree(firstTree, 40);
+        initTree(firstTree, 40, random);
         ArrayList<Integer> arrayListFirst = inorder(new ArrayList<>(), firstTree.getRoot());
         ArrayList<Integer> expectedFirst = getIntegers(41);
         Test(true, arrayListFirst.containsAll(expectedFirst), "Insert - Test 1 of 8", "some keys were not inserted ");
@@ -31,7 +42,7 @@ public class nadavTest {
 
         //same test as the previous but with more nodes.
         BTree SecondTree = new BTree(15);
-        initTree(SecondTree, 10000);
+        initTree(SecondTree, 10000, random);
         ArrayList<Integer> arrayListSecond = inorder(new ArrayList<>(), SecondTree.getRoot());
         ArrayList<Integer> expectedSecond = getIntegers(10001);
         Test(expectedSecond, arrayListSecond, "Insert - Test 6 of 8", "keys are in the wrong place in the tree");
@@ -40,9 +51,9 @@ public class nadavTest {
 
     }
 
-    private static void testSearch() {
+    private static void testSearch(boolean random) {
         BTree Tree = new BTree(3);
-        initTree(Tree, 40);
+        initTree(Tree, 40, random);
         ArrayList<Integer> arrayList = new ArrayList<>();
         ArrayList<Integer> expected = new ArrayList<>();
         for (int i = 1; i < 41; i++) {
@@ -71,23 +82,14 @@ public class nadavTest {
         Test(expected, Arrays.toString(array), "CreateMBT - Test 1 of 1");
     }
 
-    private static void testDelete() throws Exception {
+    private static void testDelete(boolean random) {
 
         BTree tree = new BTree(2);
-        initTree(tree,100);
-        BTreeLatex J= new BTreeLatex(tree,"boris");
-        J.addTreeState("");
-
+        initTree(tree, 100, random);
         tree.delete(74);
-
         tree.delete(89);
-
         tree.delete(32);
-
-
-
         tree.delete(103);//should not change anything in the tree because the key is not in the tree.
-
         ArrayList<Integer> arrayList = inorder(new ArrayList<>(), tree.getRoot());
         ArrayList<Integer> expected = getIntegers(101);
         Test(null, tree.search(74), "Delete - Test 1 of 8", "the key 74 is still in the tree");
@@ -97,19 +99,30 @@ public class nadavTest {
         expected.remove(73);
         expected.remove(31);
         Test(expected, arrayList, "Delete - Test 4 of 8", "keys are in the wrong place in the tree");
-
-        for (int i = 0; i < 50; i++) {
-            System.out.print(""+i);
-            SecureRandom rnd = new SecureRandom();
-            int keyToDelete = rnd.nextInt(100);
-            Integer DeletedKey = keyToDelete;
-            expected.remove(DeletedKey);
-            tree.delete(keyToDelete);
+        if (random)
+            for (int i = 0; i < 50; i++) {
+                SecureRandom rnd = new SecureRandom();
+                int keyToDelete = rnd.nextInt(100);
+                Integer DeletedKey = keyToDelete;
+                expected.remove(DeletedKey);
+                tree.delete(keyToDelete);
+            }
+        else {
+            for (int i = 0; i < 100; i = i + 2) {
+                try {
+                    Integer DeletedKey = i;
+                    expected.remove(DeletedKey);
+                    tree.delete(i);
+                } catch (Exception e) {
+                    System.err.println("Exception was thrown while deleting the key " + i);
+                    e.printStackTrace();
+                }
+            }
+            Test(true, checkLeavesLevel(tree), "Delete - Test 5 of 8", "found leaves not in the same depth");
+            Test(expected, inorder(new ArrayList<>(), tree.getRoot()), "Delete - Test 6 of 8", "keys are in the wrong place in the tree");
+            Test(true, checkDegree(tree, tree.getRoot()), "Delete - Test 7 of 8", "found nodes with less than t-1 blocks or with more than 2t-1 blocks");
+            Test(true, checkNumOfChildren(tree, tree.getRoot()), "Delete - Test 8 of 8", "found nodes with less or more than numOfBlocks+1 children");
         }
-        Test(true, checkLeavesLevel(tree), "Delete - Test 5 of 8", "found leaves not in the same depth");
-        Test(expected, inorder(new ArrayList<>(), tree.getRoot()), "Delete - Test 6 of 8", "keys are in the wrong place in the tree");
-        Test(true, checkDegree(tree, tree.getRoot()), "Delete - Test 7 of 8", "found nodes with less than t-1 blocks or with more than 2t-1 blocks");
-        Test(true, checkNumOfChildren(tree, tree.getRoot()), "Delete - Test 8 of 8", "found nodes with less or more than numOfBlocks+1 children");
     }
 
 
@@ -121,12 +134,13 @@ public class nadavTest {
         return expected;
     }
 
-    private static void initTree(BTree Tree, int toKey) {
+    private static void initTree(BTree Tree, int toKey, boolean random) {
         ArrayList<Block> Blocks = new ArrayList<>();
-        for (int i = 1; i <toKey+1 ; i++) {
+        for (int i = 1; i < toKey + 1; i++) {
             Blocks.add(new Block(i, null));
         }
-        Collections.shuffle(Blocks);
+        if (random)
+            Collections.shuffle(Blocks);
         for (Block block : Blocks) {
             Tree.insert(block);
         }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.jar.Pack200;
 
 //SUBMIT
 public class BNode implements BNodeInterface {
@@ -253,7 +252,7 @@ public class BNode implements BNodeInterface {
 		int deep = getIndex(key);
 		if (deep<numOfBlocks && blocksList.get(deep).getKey()==key)
 			removeCases(deep,key);
-		else if (!isLeaf()){
+		else /*if (!isLeaf())*/{
 			boolean change = shiftOrMergeChildIfNeeded(deep);
 			if (change)
 				delete(key);
@@ -263,7 +262,7 @@ public class BNode implements BNodeInterface {
 	}
 
 	public void removeCases(int index, int key)  {
-		if (isLeaf()) {//unnecessary but works
+		if (isLeaf()) {
 			blocksList.remove(index);
 			numOfBlocks--;
 		}
@@ -287,12 +286,12 @@ public class BNode implements BNodeInterface {
 
 	public int getIndex(int key){
 		int i=0;
-		while(i<numOfBlocks &&key>blocksList.get(i).getKey())   //search the key in the current node
+		while(i<numOfBlocks && key>blocksList.get(i).getKey())   //search the key in the current node
 			i++;
-		if (i!=0){
-			if (i == numOfBlocks & blocksList.get(numOfBlocks-1).getKey()==key/*|| i<numOfBlocks && blocksList.get(i).getKey()<key*/)
+		/**if (i!=0){
+			if (i == numOfBlocks & blocksList.get(numOfBlocks-1).getKey()==key/*|| i<numOfBlocks && blocksList.get(i).getKey()<key)
 				i--;
-		}
+		}**/
 		return i;
 	}
 
@@ -378,18 +377,9 @@ public class BNode implements BNodeInterface {
 	 *
 	 * @param childIndx
 	 */
-	/*
-	private void shiftOrMergeChildIfNeeded(int childIndx){
-		if (childHasNonMinimalLeftSibling(childIndx))
-			shiftFromLeftSibling(childIndx);
-		else if (childHasNonMinimalRightSibling(childIndx))
-			shiftFromRightSibling(childIndx);
-		else
-			if (childrenList.size()!=1)
-				mergeChildWithSibling(childIndx);
-	}*/
+
 	private boolean shiftOrMergeChildIfNeeded(int childIndx) {
-		if (childIndx<numOfBlocks && getChildAt(childIndx).numOfBlocks >= t)
+		if (/*childIndx < childrenList.size() &&*/ getChildAt(childIndx).numOfBlocks >= t)
 			return false;
 		if (childHasNonMinimalLeftSibling(childIndx)) {
 			shiftFromLeftSibling(childIndx);
@@ -399,7 +389,6 @@ public class BNode implements BNodeInterface {
 			shiftFromRightSibling(childIndx);
 			return true;
 		}
-		//do something that make sure that if its only one child it wont merge
 		mergeChildWithSibling(childIndx);
 		return true;
 	}
