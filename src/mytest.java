@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class mytest {
     public static void main(String[] args){
         BTree tree = new BTree(2);
-        ArrayList<Block> blocks = Block.blockFactory(0, 40);
+        ArrayList<Block> blocks = Block.blockFactory(0, 5);
         for (Block b : blocks){
             tree.insert(b);
         }

@@ -288,10 +288,10 @@ public class BNode implements BNodeInterface {
 		int i=0;
 		while(i<numOfBlocks && key>blocksList.get(i).getKey())   //search the key in the current node
 			i++;
-		/**if (i!=0){
-			if (i == numOfBlocks & blocksList.get(numOfBlocks-1).getKey()==key/*|| i<numOfBlocks && blocksList.get(i).getKey()<key)
+		if (i!=0){
+			if (i == numOfBlocks & blocksList.get(numOfBlocks-1).getKey()==key/*|| i<numOfBlocks && blocksList.get(i).getKey()<key*/)
 				i--;
-		}**/
+		}
 		return i;
 	}
 
