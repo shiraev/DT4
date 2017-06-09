@@ -108,8 +108,11 @@ public class BTree implements BTreeInterface {
 
 		if (root.isLeaf()){
 			int index = root.getIndex(key);
-			if (index<root.getNumOfBlocks() && root.getBlocksList().get(index).getKey()==key)
+			if (index<root.getNumOfBlocks() && root.getBlocksList().get(index).getKey()==key) {
 				root.getBlocksList().remove(index);
+				int curNum=root.getNumOfBlocks();
+				root.setNumOfBlocks(curNum-1);
+			}
 			else return;
 		}
 		root.delete(key);
