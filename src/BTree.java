@@ -113,7 +113,7 @@ public class BTree implements BTreeInterface {
 			else return;
 		}
 		root.delete(key);
-		if (/*root.getNumOfBlocks()==0 &*/ !root.isLeaf()){
+		if (root.getNumOfBlocks()==0 && !root.isLeaf()){
 			root=root.getChildAt(0);
 		}
 	}

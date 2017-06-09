@@ -379,7 +379,7 @@ public class BNode implements BNodeInterface {
 	 */
 
 	private boolean shiftOrMergeChildIfNeeded(int childIndx) {
-		if (/*childIndx < childrenList.size() &&*/ getChildAt(childIndx).numOfBlocks >= t)
+		if (childIndx < childrenList.size() && getChildAt(childIndx).numOfBlocks >= t)
 			return false;
 		if (childHasNonMinimalLeftSibling(childIndx)) {
 			shiftFromLeftSibling(childIndx);
@@ -461,8 +461,10 @@ public class BNode implements BNodeInterface {
 		for (int i=0; i<childNode.numOfBlocks; i++)
 			blocksList.add(i,childNode.getBlockAt(i));
 		numOfBlocks= childNode.numOfBlocks;
-		childrenList=null;
-		isLeaf=true;
+		childrenList.set(0,childNode.childrenList.get(0));
+		for (int i=1;i<childNode.childrenList.size();i++){
+			childrenList.add(i,childNode.childrenList.get(i));
+		}
 	}
 
 	/**
