@@ -107,8 +107,9 @@ public class BTree implements BTreeInterface {
 		//add what happen if root.size = 1 and u need to delete this block
 		if (root.isLeaf()){
 			int index = root.getIndex(key);
-			if (root.getBlocksList().get(index).getKey()==key)
+			if (index<root.getNumOfBlocks() && root.getBlocksList().get(index).getKey()==key)
 				root.getBlocksList().remove(index);
+			else return;
 		}
 		root.delete(key);
 		if (root.getNumOfBlocks()==0 & !root.isLeaf()){

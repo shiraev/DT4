@@ -1,4 +1,3 @@
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,14 +50,14 @@ public class BTreeLatex {
         boolean result = true;
 
         /*
-        
-        
-        
-        
+
+
+
+
         *****************Insert here the starting code before the bug****************************
-        
-        
-        
+
+
+
         manualTesto.addTreeState("before bug");
         try{
         ************************************************Insert here the problematic line of code*************************
@@ -68,7 +67,7 @@ public class BTreeLatex {
         result=manualTesto.addTreeState("after bug");
         manualTesto.commitBufferedStates();
         manualTesto.finish();
-        
+
          */
         return result;
     }
@@ -122,7 +121,6 @@ public class BTreeLatex {
         readableFile = new File(DIR.getAbsolutePath() + "\\" + filename + ".txt");
         try {
             DIR.mkdir();
-            readableFile.createNewFile();
             statesHolder.append("\\documentclass{standalone}\n"
                     + " \\usepackage{forest}\n"
                     + " \\usepackage{xcolor,colortbl}"
@@ -158,7 +156,7 @@ public class BTreeLatex {
                 addTreeState("before deleting " + deletions[deletions.length - 1]);
                 tree.delete(deletions[deletions.length - 1]);
                 addTreeState("after deleting " + deletions[deletions.length - 1]);
-                result = tree.getRoot() == null || (tree.getRoot().getBlocksList().isEmpty() & tree.getRoot().getChildrenList().isEmpty());
+                result = tree.getRoot() == null ;
                 if (totalBlocks != 0 & result) {
                     System.out.println("Total blocks in tree is " + totalBlocks + " and supposed to be " + 0);
                     result = false;
@@ -246,6 +244,7 @@ public class BTreeLatex {
 
     public void finish() {
         try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(readableFile)))) {
+            readableFile.createNewFile();
             writer.println(statesHolder + "\\end{tabular}\n"
                     + "\n"
                     + "\\end{document}");
@@ -466,13 +465,12 @@ public class BTreeLatex {
         return result;
     }
 
-    private boolean useDeletions()  {
+    private boolean useDeletions() {
         boolean result = true;
-        for (int i = 0; i < 2 & result; i++) {
+        for (int i = 0; i < deletions.length - 1 & result; i++) {
             clearBuffer();
             addTreeState("before deleting " + deletions[i]);
             tree.delete(deletions[i]);
-            finish();
             result = addTreeState("after deleting " + deletions[i]) && tree.search(deletions[i]) == null;
             if (totalBlocks != (deletions.length - (i + 1)) & result) {
                 System.out.println("Total blocks in tree is " + totalBlocks + " and supposed to be " + (deletions.length - (i + 1)));
@@ -484,7 +482,7 @@ public class BTreeLatex {
             addTreeState("before deleting " + deletions[deletions.length - 1]);
             tree.delete(deletions[deletions.length - 1]);
             addTreeState("after deleting " + deletions[deletions.length - 1]);
-            result = tree.getRoot() == null || (tree.getRoot().getBlocksList().isEmpty() & tree.getRoot().getChildrenList().isEmpty());
+            result = tree.getRoot() == null;
             if (totalBlocks != 0 & result) {
                 System.out.println("Total blocks in tree is " + totalBlocks + " and supposed to be " + 0);
                 result = false;
