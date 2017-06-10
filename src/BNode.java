@@ -256,20 +256,31 @@ public class BNode implements BNodeInterface {
 
 	@Override
 	public MerkleBNode createHashNode() {
-		ArrayList<MerkleBNode> childrenListMBT = new ArrayList<>(childrenList.size());
-		ArrayList<byte[]> blockByte = new ArrayList<>(blocksList.size());
-		if (!isLeaf()) {
-			for (BNode b : childrenList) {
-				childrenListMBT.add(b.createHashNode());
+		if (!isLeaf())
+		{
+			ArrayList<MerkleBNode> MBTChildrenList = new ArrayList<MerkleBNode>(childrenList.size());
+			ArrayList<byte[]> DataList = new ArrayList<byte[]> (numOfBlocks + getChildrenList().size());
+			for (int i = 0; i < getChildrenList().size(); i++)
+			{
+				MerkleBNode next = getChildAt(i).createHashNode();
+				MBTChildrenList.add(next);
+				DataList.add(next.getHashValue());
+				if (i != numOfBlocks) DataList.add(getBlockAt(i).getData());
 			}
+			byte[] hash = HashUtils.sha1Hash(DataList);
+			return new MerkleBNode(hash, MBTChildrenList);
+
 		}
-		for (Block b : blocksList){
-			blockByte.add(b.getData());
+		else
+		{
+			ArrayList<byte[]> DataList = new ArrayList<byte[]> (numOfBlocks);
+			for (int i = 0; i < numOfBlocks; i++)
+			{
+				DataList.add(getBlockAt(i).getData());
+			}
+			byte[] hash = HashUtils.sha1Hash(DataList);
+			return new MerkleBNode(hash);
 		}
-		byte[] hashMBT = HashUtils.sha1Hash(blockByte);
-		boolean isLeafMBT = this.isLeaf();
-		MerkleBNode output = new MerkleBNode(hashMBT,isLeafMBT,childrenListMBT);
-		return output;
 	}
 
 	/**
@@ -281,18 +292,16 @@ public class BNode implements BNodeInterface {
 		BNode y=childrenList.get(childIndex);
 		BNode z=new BNode(y.getT(),y.isLeaf(),t-1);
 		z.numOfBlocks=t-1;
-		int a=0;
-		while(a+t<y.getBlocksList().size()) {
-			z.getBlocksList().add(y.getBlocksList().get(a+t));
-			y.getBlocksList().remove(a+t);
+		while(t<y.getBlocksList().size()) {
+			z.getBlocksList().add(y.getBlocksList().get(t));
+			y.getBlocksList().remove(t);
 		}
 		if(!y.isLeaf())
 		{
-			int i =0;
-			while (i+t<y.getChildrenList().size())
+			while (t<y.getChildrenList().size())
 			{
-				z.getChildrenList().add(y.getChildrenList().get(i+y.getT()));
-				y.getChildrenList().remove(y.getChildrenList().get(i+y.getT()));
+				z.getChildrenList().add(y.getChildrenList().get(y.getT()));
+				y.getChildrenList().remove(y.getChildrenList().get(y.getT()));
 			}
 		}
 		y.numOfBlocks=t-1;
@@ -356,7 +365,7 @@ public class BNode implements BNodeInterface {
 
 	/**
 	 * Add additional block to the child node at childIndx, by shifting from left sibling.
-	 * @param childIndx
+	 * @paraםm childIndx
 	 */
 	private void shiftFromLeftSibling(int childIndx){
 		//when the sibling have at least t element
